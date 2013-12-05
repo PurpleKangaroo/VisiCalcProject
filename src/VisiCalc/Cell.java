@@ -345,4 +345,17 @@ public class Cell {
 		return valid;
 	}
 	
+	/**
+	 * Gets the contents of the cell in String format so that it can be put into the table.
+	 * @return cellString - the String that the cell will contain in the spreadsheet.
+	 */
+	public String getCellString()
+	{
+		String cellString = cellStr + "";
+		if(currency == true)
+		{
+			cellString = "$" + cellStr;
+		}
+		return cellString;
+	}
 }
