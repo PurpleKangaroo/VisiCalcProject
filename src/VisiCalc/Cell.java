@@ -12,11 +12,6 @@ import java.util.ArrayList;
 
 //TODO - make changes so that string is in "double quotes"
 public class Cell {
-	private static String[][] cellValues;
-	//TODO - either keep this in this class or move to value class. 
-	//There should be a static variable that can be accesed for adding the other cell values together?????
-	//THINKING behind that is that then the class contains all of the info about the other cells. 
-	//This might make getting formulas easier.
 	private String cellStr;
 	private ValueType type;
 	private Value Value;

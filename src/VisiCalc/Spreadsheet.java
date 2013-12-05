@@ -41,4 +41,9 @@ public class Spreadsheet {
 		return cells[column][row];
 	}
 	
+	public String getCellValueString()
+	{
+		
+	}
+	
 }
