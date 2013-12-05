@@ -7,17 +7,17 @@ package VisiCalc;
  *
  */
 public class Spreadsheet {
-	private String[][] cells;
+	private Cell[][] cells;
 	
-	public Spreadsheet() 
+	public Spreadsheet()
 	{
-		cells = new String[12][22];
+		cells = new Cell[12][22];
 		
 		for (int i = 0; i < 12; i++) 
 		{
 			for (int j = 0; j < 22; j++) 
 			{
-				cells[i][j] = "0";
+				cells[i][j] = new Cell("0");
 			}
 			
 		}
@@ -36,14 +36,9 @@ public class Spreadsheet {
 		}
 	}
 	
-	public String getCell(int column, int row)
+	public Cell getCell(int column, int row)
 	{
 		return cells[column][row];
 	}
 	
-	public static void main(String[] args) 
-	{
-		Spreadsheet test = new Spreadsheet();
-		test.printSpreadsheet();
-	}
 }
