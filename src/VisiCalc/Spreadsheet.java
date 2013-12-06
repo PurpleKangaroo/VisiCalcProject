@@ -11,11 +11,11 @@ public class Spreadsheet {
 	
 	public Spreadsheet()
 	{
-		cells = new Cell[12][22];
+		cells = new Cell[22][12];
 		
-		for (int i = 0; i < 12; i++) 
+		for (int i = 0; i < 22; i++) 
 		{
-			for (int j = 0; j < 22; j++) 
+			for (int j = 0; j < 12; j++) 
 			{
 				cells[i][j] = new Cell("0");
 			}
@@ -25,9 +25,9 @@ public class Spreadsheet {
 	
 	public void printSpreadsheet() 
 	{
-		for (int i = 0; i < 12; i++) 
+		for (int i = 0; i < 22; i++) 
 		{
-			for (int j = 0; j < 22; j++) 
+			for (int j = 0; j < 12; j++) 
 			{
 				System.out.print(cells[i][j] + "\t");
 			}
