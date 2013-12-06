@@ -1,19 +1,40 @@
 package VisiCalc;
 
+/**
+ * A class of object that represents the value of a cell
+ * @author Holt Maki
+ *
+ */
 public class Value {
-	private String valueStr;
+	private String displayStr;
 	private static Value[][] cellValues = new Value[22][12];//Holds all values so that cells that contain another cells value in a formula can get the cell value
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
-	
+	private String inputStr;
+	/**
+	 * Creates an object that represents the value of a cell
+	 */
 	public Value(String ValueString)
 	{
-		valueStr = ValueString;
+		inputStr = ValueString;
 	}
 	
-	
-	public String getValueStr()
+	/**
+	 * Gets the value in String form so that it may be displayed in the spreadsheet
+	 * @return displayStr - the value in the String Form that will be displayed in the spreadsheet
+	 */
+	public String getDisplayStr()
 	{
-		return valueStr;
+		return displayStr;
+	}
+	
+	/**
+	 * Gets the String that the user input into the cell. 
+	 * This is used when the user clicks on the cell to edit it so that they may remove the ""s in a String for example to change the type of value contained in the cell.
+	 * @return inputStr - The String that the user originally input.
+	 */
+	public String getInputStr()
+	{
+		return inputStr;
 	}
 	
 	/**
