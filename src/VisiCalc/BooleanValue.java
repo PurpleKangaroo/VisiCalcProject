@@ -12,7 +12,7 @@ public class BooleanValue extends Value {
 	
 	private void setValue()
 	{
-		String a = getValueStr();
+		String a = getInputStr();
 		if (a.equalsIgnoreCase("true"))
 		{
 			value = true;

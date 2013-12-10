@@ -43,7 +43,7 @@ public class Spreadsheet {
 	
 	public String getCellValueString()
 	{
-		
+		return "THIS METHOD NOT COMPLETE";
 	}
 	
 }
