@@ -2,8 +2,8 @@ package VisiCalc;
 
 public class FractionValue extends Value {
 
-	public FractionValue(String ValueString) {
-		super(ValueString);
+	public FractionValue(String valueString) {
+		super(valueString);
 		// TODO Auto-generated constructor stub
 	}
 

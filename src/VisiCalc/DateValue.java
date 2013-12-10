@@ -5,9 +5,9 @@ import java.util.GregorianCalendar;
 public class DateValue extends Value{
 	private GregorianCalendar value;
 	
-	public DateValue(String ValueString) 
+	public DateValue(String valueString) 
 	{
-		super(ValueString);
+		super(valueString);
 		setValue();
 	}
 	

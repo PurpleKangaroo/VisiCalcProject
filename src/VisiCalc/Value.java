@@ -13,9 +13,9 @@ public class Value {
 	/**
 	 * Creates an object that represents the value of a cell
 	 */
-	public Value(String ValueString)
+	public Value(String valueString)
 	{
-		inputStr = ValueString;
+		inputStr = valueString;
 	}
 	
 	/**
