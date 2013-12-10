@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Cell {
 	private String cellStr;
 	private ValueType type;
-	private Value Value;
+	private Value value;
 	private boolean currency;
 	//TODO - make the formula accept comands like ">frac" and ">dec" so that numbers can be converted from fractions to decimals
 	public Cell(String cellString)
@@ -30,22 +30,22 @@ public class Cell {
 		switch(type)//USE A SWITCH TO DERTERMINE THE TYPE OF Value THAT THE CELL SHOULD CONTAIN
 		{
 		case STRING:
-			Value = new StringValue(cellStr);
+			value = new StringValue(cellStr);
 			break;
 		case DATE:
-			Value = new DateValue(cellStr);
+			value = new DateValue(cellStr);
 			break;
 		case NUMBER:
-			Value = new NumberValue(cellStr);
+			value = new NumberValue(cellStr);
 			break;
 		case FORMULA:
-			Value = new FormulaValue(cellStr);
+			value = new FormulaValue(cellStr);
 			break;
 		case FRACTION:
-			Value = new FractionValue(cellStr);
+			value = new FractionValue(cellStr);
 			break;
 		case BOOLEAN:
-			Value = new BooleanValue(cellStr);
+			value = new BooleanValue(cellStr);
 			break;	
 		}
 	}
@@ -149,9 +149,7 @@ public class Cell {
 	private boolean dateTest(String cellString)
 	{
 		boolean date = false;
-		if (cellString.charAt(2) == '/' && 
-			cellString.charAt(5) == '/'&& 
-			cellString.length() == 9)
+		if (cellString.charAt(2) == '/' && cellString.charAt(5) == '/'&& cellString.length() == 9)
 		{
 			try	//IF there is not an int here, an exception will be thrown when a non int is parsed then multiplied.							{
 			{

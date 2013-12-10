@@ -2,9 +2,9 @@ package VisiCalc;
 
 public class FormulaValue extends Value{
 	
-	public FormulaValue(String ValueString)
+	public FormulaValue(String valueString)
 	{
-		super(ValueString);
+		super(valueString);
 		
 	}
 	
