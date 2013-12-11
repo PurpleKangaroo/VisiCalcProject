@@ -12,12 +12,13 @@ import java.util.ArrayList;
 
 //TODO - make changes so that string is in "double quotes"
 public class Cell {
-	private String cellStr;
+	private String cellStr; //Example: "Devon"
+	private String displayString; //Example: Devon
 	private ValueType type;
 	private Value value;
 	private boolean currency;
-	//TODO - make the formula accept comands like ">frac" and ">dec" so that numbers can be converted from fractions to decimals
-	public Cell(String cellString)
+	//TODO - make the formula accept commands like ">frac" and ">dec" so that numbers can be converted from fractions to decimals
+	public Cell(String cellString)//Receives the user's input.
 	{
 		cellStr = cellString;
 		setCurrency();
