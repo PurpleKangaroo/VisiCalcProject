@@ -60,6 +60,7 @@ public class Value {
 		}
 		if (index>=0)
 		{
+			index++;
 			return index;
 		}
 		else
