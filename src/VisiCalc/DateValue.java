@@ -19,4 +19,9 @@ public class DateValue extends Value{
 									Integer.parseInt(dateStr.substring(3, 5)));
 	}
 
+	public GregorianCalendar getDateValue()
+	{
+		return value;
+	}
+	
 }
