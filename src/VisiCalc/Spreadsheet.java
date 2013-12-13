@@ -45,18 +45,10 @@ public class Spreadsheet {
 				}
 				System.out.print(a + " ");
 			}
-		}
-	}
-
-	public void printSpreadsheet() {
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				System.out.print(cells[i][j] + " ");
-			}
 			System.out.println();
 		}
 	}
-	
+
 	public void changeSpreadsheetValue(int row, int column, String newValue) {
 		cells[column][row] = newValue;
 	}

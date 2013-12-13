@@ -38,7 +38,7 @@ public class SpreadsheetGen {
 		userInput = userInput.toUpperCase();
 		userInput = userInput.replaceAll("CLEAR", "");
 		userInput = userInput.replaceAll(" ", "");
-		String cellName = userInput.substring(userInput.indexOf("clear") + 5);
+		String cellName = userInput.substring(userInput.indexOf("clear") + 1);
 		int col = findCellCol(cellName);
 		int row = findCellRow(cellName);
 		sheet = modifyCell(col,row,sheet,"0");
