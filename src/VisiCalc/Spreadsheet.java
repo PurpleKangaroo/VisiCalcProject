@@ -54,6 +54,7 @@ public class Spreadsheet {
 	String[][] cells = new String[12][22]; 
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	//TODO GET THIS THING TO RECOGNIZE A USER SETTING THE CELL VALUES BY TYPING A1 = blahblahblah or 34
+	
 	public Spreadsheet() {
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
@@ -70,4 +71,9 @@ public class Spreadsheet {
 			System.out.println();
 		}
 	}
+	
+	public void changeSpreadsheetValue(int row, int column, String newValue) {
+		cells[row][column] = newValue;
+	}
+	
 }
