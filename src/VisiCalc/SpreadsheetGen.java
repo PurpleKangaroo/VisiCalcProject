@@ -33,7 +33,6 @@ public class SpreadsheetGen {
 		}
 	}
 	
-<<<<<<< HEAD
 	private static Spreadsheet clear(String userInput, Spreadsheet sheet) throws CharNotFoundException
 	{
 		userInput = userInput.toUpperCase();
@@ -112,8 +111,7 @@ public class SpreadsheetGen {
 		return sheet;
 	}
 	
-=======
->>>>>>> 1aaa8e516523e73a23d1148c2cda45b1b5240429
+
 	public static void main(String[] args) throws CharNotFoundException
 	{
 		
@@ -124,7 +122,6 @@ public class SpreadsheetGen {
 		String userInput = sc.nextLine();
 		while (!userInput.equalsIgnoreCase("quit"))
 		{
-<<<<<<< HEAD
 			userInput = whiteSpace(userInput);
 			if (userInput.contains("clear"))
 			{
@@ -142,21 +139,11 @@ public class SpreadsheetGen {
 			{
 				System.out.println("ERROR: Not a valid input");
 			}
-=======
->>>>>>> 1aaa8e516523e73a23d1148c2cda45b1b5240429
-			userInput.replaceAll(" ", "");
-			String cellName = userInput.substring(0, userInput.indexOf('='));
-			String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
-			String cellNum = cellName.substring(1, cellName.length());
-			int cellRow = Integer.parseInt(cellNum) - 1;
-			int cellColumn = getAlphabetIndex(cellName.charAt(0));
-			test.changeSpreadsheetValue(cellRow, cellColumn, assignment);
 			test.printSpreadsheet();
 			userInput = sc.nextLine();
 		}
 		sc.close();
 		System.out.println("You have decided to quit.");
-<<<<<<< HEAD
 	}
 
 	private static boolean equalsOtherCell(String userInput) {
@@ -177,7 +164,5 @@ public class SpreadsheetGen {
 			}
 		}
 		return found;
-=======
->>>>>>> 1aaa8e516523e73a23d1148c2cda45b1b5240429
 	}
 }
