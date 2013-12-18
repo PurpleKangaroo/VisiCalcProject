@@ -10,12 +10,17 @@ public class Calculator {
 	
 	public float calculate(String expression) throws ParenthesisException
 	{
+		for (int i = 0; i < 10; i++)
+		{	expression.replaceAll(i + "(", i + "*(");
+			expression.replaceAll(")" + i, ")*" + i);
+		}
 		operators = Operator.findOperations(expression);
-		getParenthesisSets(expression);
+		getParenthesis(expression);
+		
 		
 	}
 	
-	private String getParenthesisSets(String expression) throws ParenthesisException
+	private String getParenthesis(String expression) throws ParenthesisException
 	{
 		//TODO use recursion to keep finding parenthesis inside of parenthesis.
 		class Parenthesis
@@ -62,12 +67,12 @@ public class Calculator {
 		{
 			if (expression.charAt(i) == ')')
 			{
-				int endIndex = i;
+				endIndex = i;
 			}
 		}
-		
-		Calculator parenthisisCalc = new Calculator()
-		parenthisisCalc.calculate(expression.substring(index + 1, endIndex));
+		Calculator parenthisisCalc = new Calculator();
+		float a = parenthisisCalc.calculate(expression.substring(index + 1, endIndex));
+		expression.replace(expression.substring(index+1, endIndex), a + "");
 		
 		/*if (openCounter != closeCounter)
 		{
@@ -75,5 +80,7 @@ public class Calculator {
 			throw parenthesis;
 		}*/
 	}
-
+		
+		
+		
 }
