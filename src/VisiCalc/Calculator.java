@@ -23,21 +23,6 @@ public class Calculator {
 	private String getParenthesis(String expression) throws ParenthesisException
 	{
 		//TODO use recursion to keep finding parenthesis inside of parenthesis.
-		class Parenthesis
-		{
-			private int locationStart;
-			private int locationEnd;
-			public Parenthesis(int locationStart)
-			{
-				this.locationStart = locationStart;
-			}
-			
-			public void setEnd()
-			{
-				
-			}
-		}
-		
 		int openCounter = 0;
 		int closeCounter = 0;
 		int level = 0;
