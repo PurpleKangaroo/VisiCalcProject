@@ -10,10 +10,12 @@ public class Calculator {
 	
 	public float calculate(String expression) throws ParenthesisException
 	{
+		expression = format(expression);
 		for (int i = 0; i < 10; i++)
 		{	expression.replaceAll(i + "(", i + "*(");
 			expression.replaceAll(")" + i, ")*" + i);
 		}
+		while (!finished())
 		operators = Operator.findOperations(expression);
 		getParenthesis(expression);
 		
@@ -64,6 +66,33 @@ public class Calculator {
 			ParenthesisException parenthesis = new ParenthesisException();
 			throw parenthesis;
 		}*/
+	}
+	
+	private String format(String expression)
+	{
+		String[] operatorWS = {" *", "* ", "+ ", " +", " -", "- ", "/ ", " /", "^ ", " ^", "( ", ") ", " (", " )"};
+		boolean formated = false;
+		while(!formated)
+		{
+			formated = true;
+			for (int i = 0; i < operatorWS.length; i++)
+			{
+				if( operatorWS[i]
+			}
+		}
+	}
+	
+	/**
+	 * A method that can tell if an expression is finished being calculated.
+	 * @param expression - the expression that is being calculated
+	 * @return
+	 */
+	private boolean finsihed(String expression)
+	{
+		//TODO: DEVON
+		//Take negatives into account ex: expression = -4
+		// in this case the expression is calculatted yet still contains a minus.
+		//but if the expression is 6 - 2, then the expression is not complete
 	}
 		
 		
