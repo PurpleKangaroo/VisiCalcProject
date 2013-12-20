@@ -54,8 +54,8 @@ public class Calculator {
 	
 	private void format()
 	{
-		String[] whitespace1 = {" *", "* ", " /", "/ ", "+ ", " +", "- ", " -", "( ", " (", " )", ") "};
-		String[] whitespace2 = {"*", "*", "/", "/", "+", "+", "-", "-", "(", "(", ")", ")"};
+		String[] whitespace1 = {" *", "* ", " /", "/ ", "+ ", " +", "- ", " -", "( ", " (", " )", ") ", "^ ", " ^"};
+		String[] whitespace2 = {"*", "*", "/", "/", "+", "+", "-", "-", "(", "(", ")", ")", "^", "^"};
 		for(int i = 0; i < whitespace1.length; i++)
 		{
 			while(expression.contains(whitespace1[i]))
@@ -89,6 +89,21 @@ public class Calculator {
 				}
 			}
 			
+		}
+		
+		//Reinsert whitespace
+		String[] negative = {"* ", "^ ", "/ ", "( ", ") "};
+		String[] operatorStrs = {"-", "+", "*", "^", "/"};
+		String[] operatorWSpace = {" - ", " + ", " * ", " ^ ", " / "};
+				
+		for (int i = 0; i< operatorStrs.length; i++)
+		{
+			expression.replaceAll(operatorStrs[i], operatorWSpace[i]);
+		}
+		
+		for (int i = 0; i < negative.length; i++)
+		{
+			//Negatives
 		}
 	}
 	
