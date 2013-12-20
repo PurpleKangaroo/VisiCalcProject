@@ -13,13 +13,13 @@ public class Calculator {
 	private void Calculate()
 	{
 		format();
-		while (!finished())
+		while (!isFinished())
 		{
 			
 		}
 	}
 	
-	private boolean finished()
+	private boolean isFinished()
 	{
 		if (expression.contains(" "))
 		{
