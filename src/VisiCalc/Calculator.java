@@ -12,12 +12,28 @@ public class Calculator {
 
 	private void Calculate()
 	{
-		
+		format();
+		while (!finished())
+		{
+			
+		}
+	}
+	
+	private boolean finished()
+	{
+		if (expression.contains(" "))
+		{
+			return false; 
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	private void format()
 	{
-		//TODO: Devon
+		//TODO
 		//Make this so that it will format the String expression
 		//EX: "1+2 + -3 *9-2 *6^4/2*-9" -------> "1 + 2 + -3 * 9 - 2 * 6^4 / 2 * -9"
 	}
