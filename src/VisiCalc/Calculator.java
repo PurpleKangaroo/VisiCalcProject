@@ -15,7 +15,26 @@ public class Calculator {
 		format();
 		while (!isFinished())
 		{
-			
+			float numA;
+			float numB;
+			float answer;
+			char operator;
+			if (operator.equals('+'))
+			{
+				numA + numB = answer;
+			}
+			else if (operator.equals("-"))
+			{
+				numA - numB = answer;
+			}
+			else if (operator.equals("*"))
+			{
+				numA * numB = answer;
+			}
+			else if (operator.equals("/"))
+			{
+				numA / numB = answer;		
+			}
 		}
 	}
 	
