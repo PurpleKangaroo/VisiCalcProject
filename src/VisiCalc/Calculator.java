@@ -52,9 +52,42 @@ public class Calculator {
 	
 	private void format()
 	{
-		//TODO
-		//Make this so that it will format the String expression
-		//EX: "1+2 + -3 *9-2 *6^4/2*-9" -------> "1 + 2 + -3 * 9 - 2 * 6^4 / 2 * -9"
+		String[] whitespace1 = {" *", "* ", " /", "/ ", "+ ", " +", "- ", " -", "( ", " (", " )", ") "};
+		String[] whitespace2 = {"*", "*", "/", "/", "+", "+", "-", "-", "(", "(", ")", ")"};
+		for(int i = 0; i < whitespace1.length; i++)
+		{
+			while(expression.contains(whitespace1[i]))
+			{
+				expression = expression.replaceAll(whitespace1[i], whitespace2[i]);
+			}	
+		}
+		String[] operatorEq = {"--", "-+", "+-"};
+		String[] operatorEqReplace = {"+", "-", "-"};
+		
+		boolean done = false;
+		boolean[] finished = {false, false, false};
+		
+		for (int i = 0 ; i < operatorEq.length && !done; i++)
+		{
+			
+			finished[i%3] = true;
+			
+			while(expression.contains(operatorEq[i%3]))
+			{
+				expression = expression.replace(operatorEq[i%3], operatorEqReplace[i%3]);
+				finished[i%3] = false;
+			}
+			
+			done = true;
+			for (int n = 0; n < 3; n++)
+			{
+				if(finished[n] == false)
+				{
+					done = false;
+				}
+			}
+			
+		}
 	}
 	
 	public float getValue()
