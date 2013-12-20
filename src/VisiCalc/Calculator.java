@@ -98,12 +98,20 @@ public class Calculator {
 				
 		for (int i = 0; i< operatorStrs.length; i++)
 		{
-			expression.replaceAll(operatorStrs[i], operatorWSpace[i]);
+			expression = expression.replaceAll(operatorStrs[i], operatorWSpace[i]);
+		}
+		
+		if(expression.substring(0, 3).equals(" - "))
+		{
+			expression = expression.replaceFirst(" - ", "-");
 		}
 		
 		for (int i = 0; i < negative.length; i++)
 		{
-			//Negatives
+			for (int n = 0; n < 10; n++)
+			{
+				expression = expression.replaceAll(negative[i] + " - " + n, negative[i] + " -" + n);
+			}
 		}
 	}
 	
