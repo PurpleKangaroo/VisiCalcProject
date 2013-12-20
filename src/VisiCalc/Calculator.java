@@ -15,26 +15,28 @@ public class Calculator {
 		format();
 		while (!isFinished())
 		{
-			float numA;
-			float numB;
-			float answer;
-			char operator;
-			if (operator.equals('+'))
+			Operator[] operatorsUsed = Operator.findOperations(expression);
+			
+			for (int i = 0; i < operatorsUsed.length; i++)
 			{
-				numA + numB = answer;
+				Operator operator = operatorsUsed[i];
+				if (operator.equals("+"))
+				{
+					String numA = expression.split("+")[0];;
+				}
+				else if (operator.equals("-"))
+				{
+				}
+				else if (operator.equals("*"))
+				{
+					
+				}
+				else if (operator.equals("/"))
+				{
+							
+				}
 			}
-			else if (operator.equals("-"))
-			{
-				numA - numB = answer;
-			}
-			else if (operator.equals("*"))
-			{
-				numA * numB = answer;
-			}
-			else if (operator.equals("/"))
-			{
-				numA / numB = answer;		
-			}
+			
 		}
 	}
 	
