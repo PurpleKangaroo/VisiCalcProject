@@ -15,27 +15,11 @@ public class Calculator {
 		format();
 		while (!isFinished())
 		{
-			Operator[] operatorsUsed = Operator.findOperations(expression);
-			
-			for (int i = 0; i < operatorsUsed.length; i++)
+			while(expression.contains("("))
 			{
-				Operator operator = operatorsUsed[i];
-				if (operator.equals("+"))
-				{
-					String numA = expression.split("+")[0];;
-				}
-				else if (operator.equals("-"))
-				{
-				}
-				else if (operator.equals("*"))
-				{
-					
-				}
-				else if (operator.equals("/"))
-				{
-							
-				}
+				parenthesis();
 			}
+			
 			
 		}
 	}
@@ -52,6 +36,11 @@ public class Calculator {
 		}
 	}
 	
+	/**
+	 * Formats the expression.
+	 * <li> Simplifies negatives
+	 * <li> Formats whitespace
+	 */
 	private void format()
 	{
 		String[] whitespace1 = {" *", "* ", " /", "/ ", "+ ", " +", "- ", " -", "( ", " (", " )", ") ", "^ ", " ^"};
@@ -120,5 +109,36 @@ public class Calculator {
 		return value;
 	}
 	
+	private void parenthesis()
+	{
+		String parenthesisExpr = expression.substring(expression.indexOf("("), findEndParenthisis() +1);
+		Calculator parenthesisCalc = new Calculator(parenthesisExpr.substring(1, parenthesisExpr.length() - 1));
+		parenthesisCalc.Calculate();
+		expression.replaceFirst(parenthesisExpr, parenthesisCalc.getValue() + "");
+	}
 	
+	private int findEndParenthisis()
+	{
+		boolean found = false;
+		int endParenthesis = 0;
+		int open = 0;
+		int closed = 0;
+		for(int i = expression.indexOf("("); i < expression.length() && !found; i++)
+		{
+			if (expression.charAt(i) == '(')
+			{
+				open++;
+			}
+			else if(expression.charAt(i) == ')')
+			{
+				closed++;
+			}
+			if (open == closed)
+			{
+				endParenthesis = i;
+			}
+		}
+		
+		return endParenthesis;
+	}
 }
