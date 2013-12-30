@@ -1,5 +1,7 @@
 package VisiCalc;
 
+import java.util.Stack;
+
 public class Calculator {
 	private String expression;
 	private float value;
@@ -140,5 +142,31 @@ public class Calculator {
 		}
 		
 		return endParenthesis;
+	}
+	
+	private void evaluate()
+	{
+		Stack<Integer> numberStack = new Stack<Integer>();
+		Stack<String> operatorStack = new Stack<String>();
+		boolean done = false;
+		
+		int eger = Integer.parseInt(expression.substring(0,expression.indexOf(" ")));
+		numberStack.push(eger);
+		expression = expression.substring(expression.indexOf(" "));
+		while (!done)
+		{		
+			String operator = expression.substring(0,3);
+			operatorStack.push(operator);
+			expression = expression.substring(3);
+			
+			eger = Integer.parseInt(expression.substring(0,expression.indexOf(" ")));
+			numberStack.push(eger);
+			expression = expression.substring(expression.indexOf(" "));
+			
+			if (expression.length() == 0)
+			{
+				done = true;
+			}
+		}
 	}
 }
