@@ -1,5 +1,7 @@
 package VisiCalc;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class Calculator {
@@ -146,24 +148,71 @@ public class Calculator {
 	
 	private void evaluate()
 	{
-		Stack<Integer> numberStack = new Stack<Integer>();
+		Stack<Float> numberStack = new Stack<Float>();
 		Stack<String> operatorStack = new Stack<String>();
 		boolean done = false;
+		Map<String, Integer> operators = new HashMap<String, Integer>();
 		
-		int eger = Integer.parseInt(expression.substring(0,expression.indexOf(" ")));
+		operators.put(" ^ ", 3);
+		operators.put(" * ", 2);
+		operators.put(" / ", 2);
+		operators.put(" + ", 1);
+		operators.put(" - ", 1);
+		
+		float eger = Float.parseFloat(expression.substring(0,expression.indexOf(" ")));
 		numberStack.push(eger);
 		expression = expression.substring(expression.indexOf(" "));
 		while (!done)
-		{		
-			String operator = expression.substring(0,3);
-			operatorStack.push(operator);
-			expression = expression.substring(3);
+		{	
+			try
+			{
+				String operator = expression.substring(0,3);
+				operatorStack.push(operator);
+				expression = expression.substring(3);
 			
-			eger = Integer.parseInt(expression.substring(0,expression.indexOf(" ")));
-			numberStack.push(eger);
-			expression = expression.substring(expression.indexOf(" "));
+				eger = Float.parseFloat(expression.substring(0,expression.indexOf(" ")));
+				numberStack.push(eger);
+				expression = expression.substring(expression.indexOf(" "));
+			}
+			catch(RuntimeException e)
+			{
+				
+			}
 			
-			if (expression.length() == 0)
+			if (operators.get(operatorStack.peek()) < operators.get(expression.substring(0,3)))
+			{
+				//NOTHING FUCKING HAPPENS
+			}
+			
+			else
+			{
+				float second = numberStack.pop();
+				float first = numberStack.pop();
+				String operationDesertStorm = operatorStack.pop();
+				
+				if (operationDesertStorm.equals(" ^ "))
+				{
+					numberStack.push((float) Math.pow(first, second));
+				}
+				if (operationDesertStorm.equals(" * "))
+				{
+					numberStack.push(first * second);
+				}
+				if (operationDesertStorm.equals(" / "))
+				{
+					numberStack.push(first / second);
+				}
+				if (operationDesertStorm.equals(" + "))
+				{
+					numberStack.push(first + second);
+				}
+				if (operationDesertStorm.equals(" - "))
+				{
+					numberStack.push(first - second);
+				}
+			}
+			
+			if (expression.length() == 0 && operatorStack.empty())
 			{
 				done = true;
 			}

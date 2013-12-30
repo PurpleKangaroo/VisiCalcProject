@@ -70,27 +70,27 @@ public class Cell {
 		type = null;
 		found = dateTest(cellStr);
 		
-		if (found == false)
+		if (!found)
 		{
 			stringTest(cellStr);
 		}
 		
-		if (found == false)
+		if (!found)
 		{
 			found = booleanTest(cellStr);
 		}
 
-		if (found == false)
+		if (!found)
 		{
 			found = fractionTest(cellStr);
 		}
 		
-		if (found == false)
+		if (!found)
 		{
 			found = numberTest(cellStr);
 		}
 		
-		if(found == false)
+		if (!found)
 		{
 			found = formulaTest(cellStr);
 		}
