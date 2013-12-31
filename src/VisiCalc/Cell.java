@@ -217,7 +217,7 @@ public class Cell {
 			}
 		}
 		
-		String cellString1 = getFormattedCellString(cellString + "");
+		String cellString1 = cellString + "";
 		boolean formula = false;
 		if(cellString1.contains(" + ") || cellString1.contains(" / ") || cellString1.contains(" * ") || cellString1.contains(" - ") || cellString1.contains(" ^ ") || cellString1.contains("\\sum\\") ||cellString1.contains("\\avg\\")||found);
 		{
