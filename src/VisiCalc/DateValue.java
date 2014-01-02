@@ -9,6 +9,7 @@ public class DateValue extends Value{
 	{
 		super(valueString);
 		setValue();
+		setDisplayStr(value + "");
 	}
 	
 	private void setValue()
