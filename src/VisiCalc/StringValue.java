@@ -11,7 +11,8 @@ public class StringValue extends Value{
 
 	private void setValue()
 	{
-		value = getInputStr();
+		value = getInputStr().substring(1, getInputStr().length() -1);
+		setDisplayStr(value + "");
 	}
 	
 	/**

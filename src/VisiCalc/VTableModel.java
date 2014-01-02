@@ -1,6 +1,8 @@
 package VisiCalc;
 
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -8,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Holt Maki
  *
  */
-public class VTableModel extends AbstractTableModel {
+public class VTableModel extends AbstractTableModel implements TableModelListener{
 	private static final String[] columnNames = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
 	private static final String[] rowNames = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"};
 	private Cell[][] rawCells;
@@ -24,7 +26,19 @@ public class VTableModel extends AbstractTableModel {
 		
 		displayCells = new String[12][22];
 		getDisplayCells();
+		doCells();
 		//TODO addTableModelListner();
+	}
+	
+	private void doCells()
+	{
+		for(int i = 0; i<22; i++)
+		{
+			for(int n = 0; n<12; n++)
+			{
+				setValueAt(displayCells[n][i], i, n+1);
+			}
+		}
 	}
 	
 	private void getDisplayCells()
@@ -74,8 +88,15 @@ public class VTableModel extends AbstractTableModel {
 	
 	public void setValueAt(String value, int row, int col)
 	{
-		rawCells[col][row] = new Cell(value);
-		fireTableCellUpdated(row, col);
+		spreadsheet.changeSpreadsheetValue(row, col, value);
+		fireTableCellUpdated(row, col-1);
+	}
+
+	public void tableChanged(TableModelEvent e) {
+		int row = e.getFirstRow();
+		int column = e.getColumn();
+		
+		
 	}
 
 }

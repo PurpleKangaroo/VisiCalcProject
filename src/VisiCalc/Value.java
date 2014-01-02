@@ -18,13 +18,18 @@ public class Value {
 		inputStr = valueString;
 	}
 	
+	public void setDisplayStr(String str)
+	{
+		displayStr = str;
+	}
+	
 	/**
 	 * Gets the value in String form so that it may be displayed in the spreadsheet
 	 * @return displayStr - the value in the String Form that will be displayed in the spreadsheet
 	 */
 	public String getDisplayStr()
 	{
-		return displayStr;
+		return displayStr + "";
 	}
 	
 	/**

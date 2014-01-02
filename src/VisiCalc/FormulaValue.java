@@ -2,11 +2,13 @@ package VisiCalc;
 
 public class FormulaValue extends Value{
 	private String formula;
-	
+	private float value;
 	public FormulaValue(String valueString)
 	{
 		super(valueString);
-		
+		Calculator a = new Calculator(valueString);
+		value = a.getValue();
+		setDisplayStr(value + "");
 	}
 	
 	private void parseFormula()

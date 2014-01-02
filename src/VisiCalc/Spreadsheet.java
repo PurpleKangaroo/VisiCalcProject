@@ -8,10 +8,11 @@ package VisiCalc;
 */
 //TODO NEEDS SERIOUS FIXING. RIGHT NOW IT STORES EVERYTHING AS STRING, NOT CELL
 public class Spreadsheet {
-	private Cell[][] cells = new Cell[12][22]; 
+	private Cell[][] cells; 
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	
 	public Spreadsheet() {
+		cells = new Cell[12][22];
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
 				cells[i][j] = new Cell("0");
@@ -50,6 +51,7 @@ public class Spreadsheet {
 
 	public void changeSpreadsheetValue(int row, int column, String newValue) {
 		cells[column][row] = new Cell(newValue);
+		System.out.println(newValue);
 	}
 	
 	public String getCellVal(int col, int row)

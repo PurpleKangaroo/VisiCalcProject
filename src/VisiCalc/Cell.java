@@ -42,12 +42,9 @@ public class Cell {
 		case FORMULA:
 			value = new FormulaValue(cellStr);
 			break;
-		case FRACTION:
-			value = new FractionValue(cellStr);
-			break;
 		case BOOLEAN:
 			value = new BooleanValue(cellStr);
-			break;	
+			break;
 		}
 	}
 	
@@ -72,7 +69,7 @@ public class Cell {
 		
 		if (!found)
 		{
-			stringTest(cellStr);
+			found = stringTest(cellStr);
 		}
 		
 		if (!found)
@@ -193,7 +190,7 @@ public class Cell {
 		{
 			@SuppressWarnings("unused")
 			float a = Float.parseFloat(cellString);
-			a*=3;
+			a-=3;
 		}
 		catch (Exception exception)
 		{

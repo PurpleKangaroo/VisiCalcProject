@@ -6,6 +6,8 @@ public class NumberValue extends Value{
 	public NumberValue(String valueString) {
 		super(valueString);
 		setValue();
+		setDisplayStr(value + "");
+		System.out.println(value);
 	}
 	
 	private void setValue()
