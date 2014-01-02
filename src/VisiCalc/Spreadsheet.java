@@ -6,15 +6,15 @@ package VisiCalc;
  * @author Holt Maki
  *
 */
-
+//TODO NEEDS SERIOUS FIXING. RIGHT NOW IT STORES EVERYTHING AS STRING, NOT CELL
 public class Spreadsheet {
-	private String[][] cells = new String[12][22]; 
+	private Cell[][] cells = new Cell[12][22]; 
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	
 	public Spreadsheet() {
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
-				cells[i][j] = "0";
+				cells[i][j] = new Cell("0");
 			}
 		}
 	}
@@ -24,9 +24,9 @@ public class Spreadsheet {
 		int a = 0;
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
-				if (cells[i][j].length() > a)
+				if (cells[i][j].getCellString().length() > a)
 				{
-					a = cells[i][j].length();
+					a = cells[i][j].getCellString().length();
 				}
 			}
 		}
@@ -37,7 +37,7 @@ public class Spreadsheet {
 		
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
-				String a = cells[i][j];
+				String a = cells[i][j].getCellString();
 				for (int b = getMaxLength();a.length()<b;)//work on formatitng the spreadshert
 				{
 					a = a +" ";
@@ -49,14 +49,18 @@ public class Spreadsheet {
 	}
 
 	public void changeSpreadsheetValue(int row, int column, String newValue) {
-		cells[column][row] = newValue;
+		cells[column][row] = new Cell(newValue);
 	}
 	
 	public String getCellVal(int col, int row)
 	{
-		String a = cells[col][row];
+		String a = cells[col][row].getCellString();
 		return a;
 	}
-
+	
+	protected Cell[][] getCells()
+	{
+		return cells;
+	}
 	
 }
