@@ -107,6 +107,12 @@ public class SpreadsheetGen {
 		int col = findCellCol(cellName);
 		int row = findCellRow(cellName);
 		String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
+		if (assignment.contains("+") || assignment.contains("-") || assignment.contains("*")
+				|| assignment.contains("/") || assignment.contains("^"))
+		{
+			Calculator calcExpression = new Calculator(assignment);
+			assignment = calcExpression.getValue() + "";
+		}
 		sheet = modifyCell(col,row,sheet, assignment);
 		return sheet;
 	}

@@ -6,18 +6,17 @@ import javax.swing.JTable;
 
 public class VFrame extends JFrame
 {
-	private VTable table;
-	private Spreadsheet values;
+	private VTablePanel table;
 	
 	public VFrame()
 	{
-		values = new Spreadsheet();
-		
-	}
+		table = new VTablePanel();
 	
-	private static class VTable extends JTable
-	{
-		
 	}
+
+	
+	
+	
+	
 
 }

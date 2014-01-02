@@ -16,28 +16,14 @@ public class Calculator {
 
 	private void Calculate()
 	{
+		expression.replaceAll("x", "*");
 		format();
-		while (!isFinished())
-		{
-			while(expression.contains("("))
+		
+		while(expression.contains("("))
 			{
 				parenthesis();
 			}
-			
-			
-		}
-	}
-	
-	private boolean isFinished()
-	{
-		if (expression.contains(" "))
-		{
-			return false; 
-		}
-		else
-		{
-			return true;
-		}
+		evaluate();
 	}
 	
 	/**
@@ -47,6 +33,14 @@ public class Calculator {
 	 */
 	private void format()
 	{
+		while(expression.substring(0, 1).equals(" "))
+		{
+			expression = expression.substring(1);
+		}
+		while(expression.substring(expression.length() - 1).equals(" "))
+		{
+			expression.substring(0, expression.length() - 1);
+		}
 		String[] whitespace1 = {" *", "* ", " /", "/ ", "+ ", " +", "- ", " -", "( ", " (", " )", ") ", "^ ", " ^"};
 		String[] whitespace2 = {"*", "*", "/", "/", "+", "+", "-", "-", "(", "(", ")", ")", "^", "^"};
 		for(int i = 0; i < whitespace1.length; i++)
@@ -81,19 +75,16 @@ public class Calculator {
 					done = false;
 				}
 			}
-			
 		}
-		
 		//Reinsert whitespace
-		String[] negative = {"* ", "^ ", "/ ", "( ", ") "};
-		String[] operatorStrs = {"-", "+", "*", "^", "/"};
-		String[] operatorWSpace = {" - ", " + ", " * ", " ^ ", " / "};
+		String[] negative = {"\\* ", "\\^ ", "/ ", "\\( ", "\\) "};
+		String[] operatorStrs = {"-", "\\+", "\\*", "\\^", "/"};
+		String[] operatorWSpace = {" - ", " \\+ ", " \\* ", " \\^ ", " / "};
 				
 		for (int i = 0; i< operatorStrs.length; i++)
 		{
 			expression = expression.replaceAll(operatorStrs[i], operatorWSpace[i]);
 		}
-		
 		if(expression.substring(0, 3).equals(" - "))
 		{
 			expression = expression.replaceFirst(" - ", "-");
@@ -103,9 +94,10 @@ public class Calculator {
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				expression = expression.replaceAll(negative[i] + " - " + n, negative[i] + " -" + n);
+				expression = expression.replaceAll((negative[i] + " - " + n), (negative[i] + " -" + n));
 			}
 		}
+		expression = expression + " ";
 	}
 	
 	public float getValue()
@@ -158,7 +150,7 @@ public class Calculator {
 		operators.put(" / ", 2);
 		operators.put(" + ", 1);
 		operators.put(" - ", 1);
-		
+
 		float eger = Float.parseFloat(expression.substring(0,expression.indexOf(" ")));
 		numberStack.push(eger);
 		expression = expression.substring(expression.indexOf(" "));
@@ -179,43 +171,74 @@ public class Calculator {
 				
 			}
 			
-			if (operators.get(operatorStack.peek()) < operators.get(expression.substring(0,3)))
+			try
 			{
-				//NOTHING FUCKING HAPPENS
+				if (operators.get(operatorStack.peek()) < operators.get(expression.substring(0,3)))
+				{
+					//NOTHING HAPPENS.
+				}
+				
+				else
+				{
+					float second = numberStack.pop();
+					float first = numberStack.pop();
+					String operation = operatorStack.pop();
+					
+					if (operation.equals(" ^ "))
+					{
+						numberStack.push((float) Math.pow(first, second));
+					}
+					if (operation.equals(" * "))
+					{
+						numberStack.push(first * second);
+					}
+					if (operation.equals(" / "))
+					{
+						numberStack.push(first / second);
+					}
+					if (operation.equals(" + "))
+					{
+						numberStack.push(first + second);
+					}
+					if (operation.equals(" - "))
+					{
+						numberStack.push(first - second);
+					}
+				}
 			}
 			
-			else
+			catch(RuntimeException f)
 			{
 				float second = numberStack.pop();
 				float first = numberStack.pop();
-				String operationDesertStorm = operatorStack.pop();
+				String operation = operatorStack.pop();
 				
-				if (operationDesertStorm.equals(" ^ "))
+				if (operation.equals(" ^ "))
 				{
 					numberStack.push((float) Math.pow(first, second));
 				}
-				if (operationDesertStorm.equals(" * "))
+				if (operation.equals(" * "))
 				{
 					numberStack.push(first * second);
 				}
-				if (operationDesertStorm.equals(" / "))
+				if (operation.equals(" / "))
 				{
 					numberStack.push(first / second);
 				}
-				if (operationDesertStorm.equals(" + "))
+				if (operation.equals(" + "))
 				{
 					numberStack.push(first + second);
 				}
-				if (operationDesertStorm.equals(" - "))
+				if (operation.equals(" - "))
 				{
 					numberStack.push(first - second);
-				}
+				}	
 			}
-			
-			if (expression.length() == 0 && operatorStack.empty())
+			if (expression.length() == 1 && operatorStack.empty() == true)
 			{
 				done = true;
 			}
 		}
+		value = numberStack.pop();
 	}
 }

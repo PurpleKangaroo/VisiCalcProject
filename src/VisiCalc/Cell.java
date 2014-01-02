@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * A class of object that represents a cell in the spreadsheet.
  * This class of object is made so that it can adjust to different types of contents (e.g. date, int, String, etc.)
  * @author Holt Maki
- *
+ * @author Devon Grove
  */
 
 //TODO - make changes so that string is in "double quotes"
@@ -102,32 +102,39 @@ public class Cell {
 	private boolean dateTest(String cellString)
 	{
 		boolean date = false;
-		if (cellString.charAt(2) == '/' && cellString.charAt(5) == '/'&& cellString.length() == 9)
+		try
 		{
-			try	//IF there is not an int here, an exception will be thrown when a non int is parsed then multiplied.							{
+			if (cellString.charAt(2) == '/' && cellString.charAt(5) == '/'&& cellString.length() == 9)
 			{
-				String dateStr = cellString.replaceAll("/", "");
-				for (int i = 0; i<7; i++)
+				try	//IF there is not an int here, an exception will be thrown when a non int is parsed then multiplied.							{
 				{
-					@SuppressWarnings("unused")
-					int j = Integer.parseInt(dateStr.charAt(i)+ "");
-					j*=2;
+					String dateStr = cellString.replaceAll("/", "");
+					for (int i = 0; i<7; i++)
+					{
+						@SuppressWarnings("unused")
+						int j = Integer.parseInt(dateStr.charAt(i)+ "");
+						j*=2;
+					}
+					int monthInt = Integer.parseInt(dateStr.substring(0,2));
+					int yr = Integer.parseInt(dateStr.substring(4));
+					int day = Integer.parseInt(dateStr.substring(2,4));
+					if (validateDate(day, monthInt, yr))
+					{
+						date = true;
+						type = ValueType.DATE;
+					}
 				}
-				int monthInt = Integer.parseInt(dateStr.substring(0,2));
-				int yr = Integer.parseInt(dateStr.substring(4));
-				int day = Integer.parseInt(dateStr.substring(2,4));
-				if (validateDate(day, monthInt, yr))
+			
+				catch (Exception exception)
 				{
-					date = true;
-					type = ValueType.DATE;
+					date = false;
+					type = null;
 				}
 			}
-		
-			catch (Exception exception)
-			{
-				date = false;
-				type = null;
-			}
+		}
+		catch (Exception e)
+		{
+			
 		}
 		
 		return date;
@@ -217,7 +224,7 @@ public class Cell {
 			}
 		}
 		
-		String cellString1 = getFormattedCellString(cellString + "");
+		String cellString1 = cellString + "";
 		boolean formula = false;
 		if(cellString1.contains(" + ") || cellString1.contains(" / ") || cellString1.contains(" * ") || cellString1.contains(" - ") || cellString1.contains(" ^ ") || cellString1.contains("\\sum\\") ||cellString1.contains("\\avg\\")||found);
 		{
@@ -305,4 +312,14 @@ public class Cell {
 		}
 		return cellString;
 	}
+
+	public String getDisplayString() {
+		return displayString;
+	}
+	
+	public Value getValue()
+	{
+		return value;
+	}
+	
 }
