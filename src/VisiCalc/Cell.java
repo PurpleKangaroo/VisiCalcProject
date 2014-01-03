@@ -183,7 +183,7 @@ public class Cell {
 	}
 
 	private boolean numberTest(String cellString)
-	{
+	{//TODO: FIX
 		boolean numTest = true;
 		type = ValueType.NUMBER;
 		try

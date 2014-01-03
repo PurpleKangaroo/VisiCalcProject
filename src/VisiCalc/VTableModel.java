@@ -22,6 +22,7 @@ public class VTableModel extends AbstractTableModel implements TableModelListene
 		super();
 		spreadsheet = new Spreadsheet();
 		
+		rawCells = new Cell[12][22];
 		rawCells = spreadsheet.getCells();
 		
 		displayCells = new String[12][22];
@@ -88,8 +89,8 @@ public class VTableModel extends AbstractTableModel implements TableModelListene
 	
 	public void setValueAt(String value, int row, int col)
 	{
-		spreadsheet.changeSpreadsheetValue(row, col, value);
-		fireTableCellUpdated(row, col-1);
+		spreadsheet.changeSpreadsheetValue(row, col-1, value);
+		fireTableCellUpdated(row, col);
 	}
 
 	public void tableChanged(TableModelEvent e) {
@@ -97,6 +98,11 @@ public class VTableModel extends AbstractTableModel implements TableModelListene
 		int column = e.getColumn();
 		
 		
+	}
+	
+	public String getColumnName(int col)
+	{
+		return columnNames[col];
 	}
 
 }

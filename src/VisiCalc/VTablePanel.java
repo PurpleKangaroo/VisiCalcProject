@@ -3,17 +3,11 @@ package VisiCalc;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.event.MouseAdapter;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.SingleSelectionModel;
 import javax.swing.SwingUtilities;
 
 //TODO:REMEMBER COLORED CELLS
@@ -27,7 +21,7 @@ public class VTablePanel extends JPanel
 		super(new BorderLayout());
 		
 		JTable table = new JTable(new VTableModel());
-		table.setPreferredScrollableViewportSize(new Dimension(500, 300));
+		table.setPreferredScrollableViewportSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
