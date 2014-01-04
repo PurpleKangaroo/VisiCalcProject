@@ -8,7 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -22,15 +26,6 @@ import javax.swing.SwingUtilities;
 //TODO:L Find a way to display row names
 public class VTablePanel extends JPanel
 {
-	private class ExitListner implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-			
-		}
-	}
-	
 	protected VTextField userInputField;
 	
 	public VTablePanel()
@@ -44,6 +39,7 @@ public class VTablePanel extends JPanel
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
+		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
 		
 		JScrollPane scroll = new JScrollPane(table);
@@ -62,10 +58,16 @@ public class VTablePanel extends JPanel
 		JMenu help = new JMenu("Help");
 		
 		JMenuItem exit = new JMenuItem("Exit", MouseEvent.MOUSE_CLICKED);
-		exit.addActionListener(new ExitListner());
+		exit.addActionListener(new ExitListener());
+		
 		JMenuItem open = new JMenuItem("Open", MouseEvent.MOUSE_CLICKED);
+		open.addActionListener(new OpenListener());
+		
 		JMenuItem save = new JMenuItem("Save", MouseEvent.MOUSE_CLICKED);
+		//FIXME: Have this actually do something when clicked
+		
 		JMenuItem saveAs = new JMenuItem("Save As...", MouseEvent.MOUSE_CLICKED);
+		//FIXME: Have this actually do something when clicked
 		
 		file.add(exit);
 		file.add(open);
@@ -77,6 +79,42 @@ public class VTablePanel extends JPanel
 		menu.add(help);
 				
 		add(menu, BorderLayout.NORTH);
+	}
+	
+	private class ExitListener implements ActionListener 
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+			
+		}
+	}
+	
+	private class OpenListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {//FIXME: MAKE THIS WORK
+			try
+			{
+				System.out.println(new PathFinder().getVisiCalc_Path("VisiCalc Saves"));
+				JFileChooser opener = new JFileChooser(new File((new PathFinder()).getVisiCalc_Path("VisiCalc Saves")));
+				Scanner in = null;
+				if(opener.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+				{
+					File loadFile = opener.getSelectedFile();
+					
+				}
+			}
+			catch(Exception E)
+			{
+				
+			}
+			
+			
+		}
+		
 	}
 	
 	private static void create()

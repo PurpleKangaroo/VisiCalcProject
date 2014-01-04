@@ -1,5 +1,10 @@
 package VisiCalc;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
+
 /**
  * 
  * @author Devon Grove
@@ -16,6 +21,7 @@ public class Spreadsheet {
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
 				cells[i][j] = new Cell("\"0\"");
+				//FIXME: make it so that the cell is initialized as a number, but fix number test in cell first
 			}
 		}
 	}
@@ -62,6 +68,22 @@ public class Spreadsheet {
 	protected Cell[][] getCells()
 	{
 		return cells;
+	}
+	
+	public void save(String filename) throws FileNotFoundException, URISyntaxException
+	{
+		File saveFile = new File((new PathFinder()).getVisiCalc_Path(filename+".txt"));
+		PrintWriter out = new PrintWriter(saveFile);
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 22; j++) {
+				out.println(cells[i][j].getValue().getInputStr());
+			}
+		}
+	}
+	
+	public void load(String filename)
+	{
+		//FIXME fill
 	}
 	
 }
