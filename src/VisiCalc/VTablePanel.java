@@ -22,6 +22,14 @@ import javax.swing.SwingUtilities;
 //TODO:L Find a way to display row names
 public class VTablePanel extends JPanel
 {
+	private class ExitListner implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+			
+		}
+	}
 	
 	protected VTextField userInputField;
 	
@@ -54,6 +62,7 @@ public class VTablePanel extends JPanel
 		JMenu help = new JMenu("Help");
 		
 		JMenuItem exit = new JMenuItem("Exit", MouseEvent.MOUSE_CLICKED);
+		exit.addActionListener(new ExitListner());
 		JMenuItem open = new JMenuItem("Open", MouseEvent.MOUSE_CLICKED);
 		JMenuItem save = new JMenuItem("Save", MouseEvent.MOUSE_CLICKED);
 		JMenuItem saveAs = new JMenuItem("Save As...", MouseEvent.MOUSE_CLICKED);
@@ -89,6 +98,8 @@ public class VTablePanel extends JPanel
 			public void run(){create();}
 		});
 	}
+
+
 
 }
 
