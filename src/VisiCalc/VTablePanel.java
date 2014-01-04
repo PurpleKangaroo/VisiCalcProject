@@ -8,7 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -22,15 +25,6 @@ import javax.swing.SwingUtilities;
 //TODO:L Find a way to display row names
 public class VTablePanel extends JPanel
 {
-	private class ExitListner implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-			
-		}
-	}
-	
 	protected VTextField userInputField;
 	
 	public VTablePanel()
@@ -63,10 +57,10 @@ public class VTablePanel extends JPanel
 		JMenu help = new JMenu("Help");
 		
 		JMenuItem exit = new JMenuItem("Exit", MouseEvent.MOUSE_CLICKED);
-		exit.addActionListener(new ExitListner());
+		exit.addActionListener(new ExitListener());
 		
 		JMenuItem open = new JMenuItem("Open", MouseEvent.MOUSE_CLICKED);
-		//FIXME: Have this do something when clicked
+		open.addActionListener(new OpenListener());
 		
 		JMenuItem save = new JMenuItem("Save", MouseEvent.MOUSE_CLICKED);
 		//FIXME: Have this actually do something when clicked
@@ -84,6 +78,33 @@ public class VTablePanel extends JPanel
 		menu.add(help);
 				
 		add(menu, BorderLayout.NORTH);
+	}
+	
+	private class ExitListener implements ActionListener 
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+			
+		}
+	}
+	
+	private class OpenListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser opener = new JFileChooser();
+			Scanner in = null;
+			if(opener.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+			{
+				File loadFile = opener.getSelectedFile();
+				
+			}
+			
+		}
+		
 	}
 	
 	private static void create()

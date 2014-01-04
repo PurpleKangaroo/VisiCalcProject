@@ -1,5 +1,8 @@
 package VisiCalc;
 
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -105,4 +108,16 @@ public class VTableModel extends AbstractTableModel implements TableModelListene
 		return columnNames[col];
 	}
 
+	public void save(String fileName) throws FileNotFoundException, URISyntaxException
+	{
+		spreadsheet.save(fileName);
+	}
+	
+	public void open(String fileName)
+	{
+		spreadsheet.load(fileName);
+		rawCells = spreadsheet.getCells();
+		getDisplayCells();
+		doCells();
+	}
 }
