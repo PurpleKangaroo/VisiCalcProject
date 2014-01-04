@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -94,14 +95,23 @@ public class VTablePanel extends JPanel
 	{
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			JFileChooser opener = new JFileChooser();
-			Scanner in = null;
-			if(opener.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+		public void actionPerformed(ActionEvent e) {//FIXME: MAKE THIS WORK
+			try
 			{
-				File loadFile = opener.getSelectedFile();
+				System.out.println(new PathFinder().getVisiCalc_Path("VisiCalc Saves"));
+				JFileChooser opener = new JFileChooser(new File((new PathFinder()).getVisiCalc_Path("VisiCalc Saves")));
+				Scanner in = null;
+				if(opener.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+				{
+					File loadFile = opener.getSelectedFile();
+					
+				}
+			}
+			catch(Exception E)
+			{
 				
 			}
+			
 			
 		}
 		

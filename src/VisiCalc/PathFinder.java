@@ -24,7 +24,7 @@ public class PathFinder {
 		VisiCalc_Path = file.getAbsolutePath();
 		int index = VisiCalc_Path.indexOf("%");
 		VisiCalc_Path = VisiCalc_Path.substring(0,index);
-		VisiCalc_Path = VisiCalc_Path.substring(0, VisiCalc_Path.lastIndexOf("file"));
+		VisiCalc_Path = VisiCalc_Path.substring(0, VisiCalc_Path.lastIndexOf("VisiCalc"));
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class PathFinder {
 	{
 		String pathStr = VisiCalc_Path + "";
 		fileString = fileString.substring(fileString.indexOf("/VisiCalc/") + "/VisiCalc/".length());
-		pathStr = pathStr + fileString;
+		pathStr = pathStr + "/VisiCalc/" + fileString;
 		return pathStr;
 	}
 	
