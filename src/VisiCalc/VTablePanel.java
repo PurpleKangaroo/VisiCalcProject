@@ -44,6 +44,7 @@ public class VTablePanel extends JPanel
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
+		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
 		
 		JScrollPane scroll = new JScrollPane(table);
@@ -63,9 +64,15 @@ public class VTablePanel extends JPanel
 		
 		JMenuItem exit = new JMenuItem("Exit", MouseEvent.MOUSE_CLICKED);
 		exit.addActionListener(new ExitListner());
+		
 		JMenuItem open = new JMenuItem("Open", MouseEvent.MOUSE_CLICKED);
+		//FIXME: Have this do something when clicked
+		
 		JMenuItem save = new JMenuItem("Save", MouseEvent.MOUSE_CLICKED);
+		//FIXME: Have this actually do something when clicked
+		
 		JMenuItem saveAs = new JMenuItem("Save As...", MouseEvent.MOUSE_CLICKED);
+		//FIXME: Have this actually do something when clicked
 		
 		file.add(exit);
 		file.add(open);
