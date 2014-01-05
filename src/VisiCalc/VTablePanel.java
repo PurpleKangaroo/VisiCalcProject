@@ -64,7 +64,7 @@ public class VTablePanel extends JPanel
 		open.addActionListener(new OpenListener());
 		
 		JMenuItem save = new JMenuItem("Save", MouseEvent.MOUSE_CLICKED);
-		//FIXME: Have this actually do something when clicked
+		//FIXME: add a listener that checks if the spreadsheet has a file name and then 
 		
 		JMenuItem saveAs = new JMenuItem("Save As...", MouseEvent.MOUSE_CLICKED);
 		//FIXME: Have this actually do something when clicked
@@ -95,8 +95,8 @@ public class VTablePanel extends JPanel
 	{
 
 		@Override
-		public void actionPerformed(ActionEvent e) {//FIXME: MAKE THIS WORK
-			try
+		public void actionPerformed(ActionEvent e) {//FIXME: MAKE THIS WORK - 1.Pathfinder so that it starts at the visicalc saves folder.
+			try//FIXME: 2. Make it actually open files
 			{
 				System.out.println(new PathFinder().getVisiCalc_Path("VisiCalc Saves"));
 				JFileChooser opener = new JFileChooser(new File((new PathFinder()).getVisiCalc_Path("VisiCalc Saves")));
@@ -109,12 +109,40 @@ public class VTablePanel extends JPanel
 			}
 			catch(Exception E)
 			{
-				
+				//NOTHING
 			}
 			
 			
 		}
 		
+	}
+
+	private class SaveAsListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			//FIXME: MAKE THIS WORK - 1.Pathfinder so that it starts at the visicalc saves folder.
+			try//FIXME: 2. Make it actually open files
+			{
+				System.out.println(new PathFinder().getVisiCalc_Path("VisiCalc Saves"));
+				JFileChooser saver = new JFileChooser(new File((new PathFinder()).getVisiCalc_Path("VisiCalc Saves")));
+				Scanner in = null;
+				if(saver.showSaveDialog(null)== JFileChooser.APPROVE_OPTION)
+				{
+					File loadFile = saver.getSelectedFile();
+					
+				}
+				
+			}
+			
+			catch(Exception e)
+			{
+				//NOTHING
+			}
+			
+		}
 	}
 	
 	private static void create()
