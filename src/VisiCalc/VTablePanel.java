@@ -41,6 +41,7 @@ public class VTablePanel extends JPanel
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
+		table.add
 		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
 		
@@ -72,10 +73,10 @@ public class VTablePanel extends JPanel
 		JMenuItem saveAs = new JMenuItem("Save As...", MouseEvent.MOUSE_CLICKED);
 		saveAs.addActionListener(new SaveAsListener());
 		
-		file.add(exit);
 		file.add(open);
 		file.add(save);
 		file.add(saveAs);
+		file.add(exit);
 		
 		menu.add(file);
 		menu.add(options);
