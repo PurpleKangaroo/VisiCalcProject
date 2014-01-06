@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.Scanner;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -23,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
@@ -39,22 +42,22 @@ public class VTablePanel extends JPanel
 	{
 		super(new BorderLayout());
 		
+		userInputField = new VTextField();
+		userInputField.setSize(new Dimension(500, 20));
+		
 		table = new VTable(new VTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
-		
+		table.setDefaultEditor(String.class, new DefaultCellEditor(userInputField));
 		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
 		
 		JScrollPane scroll = new JScrollPane(table);
 		
 		add(scroll, BorderLayout.CENTER);
-		
-		userInputField = new VTextField();
-		userInputField.setSize(new Dimension(500, 20));
 		
 		add(userInputField, BorderLayout.SOUTH);
 		
@@ -85,13 +88,7 @@ public class VTablePanel extends JPanel
 				}
 				//FIXME
 			}
-		});		
-		
-		for (int i = 1; i<table.getColumnCount(); i++)
-		{
-			TableColumn column = table.getColumnModel().getColumn(i);
-			column.setCellEditor(new Edit());
-		}
+		});	
 		
 		JMenuBar menu = new JMenuBar();
 		
@@ -134,7 +131,7 @@ public class VTablePanel extends JPanel
 		}
 	}
 	
-	private class OpenListener implements ActionListener
+	private class OpenListener implements ActionListener, TableModelListener
 	{
 
 		@Override
@@ -157,59 +154,18 @@ public class VTablePanel extends JPanel
 			
 			
 		}
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	}
 	
 	private class CtrlSListener //implements (Sometype of listener)
 	{
 		//FIXME fill
-	}
-	
-	private class Edit extends AbstractCellEditor implements TableCellEditor
-	{
-		private JTextField field;
-		private String str;
-		
-		public void addTextField(JTextField field)
-		{
-			this.field = field;
-		}
-		
-		@Override
-		public Object getCellEditorValue() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Component getTableCellEditorComponent(JTable table, Object value,
-				boolean selected, int row, int col) {
-			//FIXME : Deleate?
-			if(selected)
-			{
-				table.changeSelection(row, col, false, false);
-			}
-			String text = userInputField.getText();
-			while(text.contains(" "))
-			{
-				text.replaceAll(" ", "");
-			}
-			for (int i = 0; i < 12; i++) 
-			{
-				for (int j = 0; j < 22; j++) 
-					{
-					String cellName = columnNames[i] + rowNames[j];
-					String text1 = text.substring(0,cellName.length() + 1).toUpperCase();
-					if(text.equalsIgnoreCase(cellName + "="))
-					{
-						
-					}
-				}
-			}
-				
-			return null;
-		}
-		
 	}
 
 	private class SaveAsListener implements ActionListener
