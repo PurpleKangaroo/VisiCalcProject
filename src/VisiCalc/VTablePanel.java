@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -65,10 +66,11 @@ public class VTablePanel extends JPanel
 		open.addActionListener(new OpenListener());
 		
 		JMenuItem save = new JMenuItem("Save", MouseEvent.MOUSE_CLICKED);
+		save.addActionListener(new SaveListener());
 		//FIXME: add a listener that checks if the spreadsheet has a file name and then 
 		
 		JMenuItem saveAs = new JMenuItem("Save As...", MouseEvent.MOUSE_CLICKED);
-		//FIXME: Have this actually do something when clicked
+		saveAs.addActionListener(new SaveAsListener());
 		
 		file.add(exit);
 		file.add(open);
@@ -117,6 +119,11 @@ public class VTablePanel extends JPanel
 		}
 		
 	}
+	
+	private class CtrlSListener //implements (Sometype of listener)
+	{
+		//FIXME fill
+	}
 
 	private class SaveAsListener implements ActionListener
 	{
@@ -144,6 +151,18 @@ public class VTablePanel extends JPanel
 			}
 			
 		}
+	}
+	
+	private class SaveListener implements ActionListener
+	{
+		//FIXME - fill
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 	private void cellName()//FIXME use this to make the text field show the selected cell. But make sure the user can still type.
@@ -179,8 +198,5 @@ public class VTablePanel extends JPanel
 			public void run(){create();}
 		});
 	}
-
-
-
 }
 
