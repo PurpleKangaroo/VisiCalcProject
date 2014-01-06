@@ -27,12 +27,13 @@ import javax.swing.SwingUtilities;
 public class VTablePanel extends JPanel
 {
 	protected VTextField userInputField;
+	private JTable table;
 	
 	public VTablePanel()
 	{
 		super(new BorderLayout());
 		
-		JTable table = new JTable(new VTableModel());
+		table = new JTable(new VTableModel());
 		
 		table.setPreferredScrollableViewportSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
@@ -131,7 +132,7 @@ public class VTablePanel extends JPanel
 				Scanner in = null;
 				if(saver.showSaveDialog(null)== JFileChooser.APPROVE_OPTION)
 				{
-					File loadFile = saver.getSelectedFile();
+					File saveFile = saver.getSelectedFile();
 					
 				}
 				
@@ -141,6 +142,21 @@ public class VTablePanel extends JPanel
 			{
 				//NOTHING
 			}
+			
+		}
+	}
+	
+	private void cellName()//FIXME use this to make the text field show the selected cell. But make sure the user can still type.
+	{
+		try
+		{
+		String[] columnNames = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};		
+		String cellName = columnNames[table.getSelectedColumn()-1] + (table.getSelectedRow()-1);
+		String display = cellName + "  = ";
+		userInputField.setText(display);
+		}
+		catch(Exception e)
+		{
 			
 		}
 	}
@@ -155,7 +171,6 @@ public class VTablePanel extends JPanel
 		
 		frame.pack();
 		frame.setVisible(true);
-		
 	}
 	
 	public static void main(String[] args)
