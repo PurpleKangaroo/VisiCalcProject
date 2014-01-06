@@ -45,8 +45,8 @@ public class PathFinder {
 	public String getVisiCalc_Path(String fileString)
 	{
 		String pathStr = VisiCalc_Path + "";
-		fileString = fileString.substring(fileString.indexOf("/VisiCalc/") + "/VisiCalc/".length());
-		pathStr = pathStr + "/VisiCalc/" + fileString;
+		fileString = fileString.substring(fileString.indexOf("/VisiCalc")-1 + "/VisiCalc".length()+1);
+		pathStr = pathStr + "/VisiCalc" + fileString;
 		return pathStr;
 	}
 	

@@ -2,6 +2,7 @@ package VisiCalc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.EventObject;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -20,9 +22,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellEditor;
 
 //TODO:REMEMBER COLORED CELLS
 //TODO:L Find a way to display row names
@@ -56,9 +62,94 @@ public class VTablePanel extends JPanel
 		
 		add(userInputField, BorderLayout.SOUTH);
 		
+		table.setCellEditor(new TableCellEditor(){
+
+			@Override
+			public void addCellEditorListener(CellEditorListener arg0) {
+				class CellEditorListen implements CellEditorListener{
+
+					@Override
+					public void editingCanceled(ChangeEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void editingStopped(ChangeEvent arg0) {
+						stopCellEditing();
+						
+					}
+					
+				}
+				
+			}
+
+			@Override
+			public void cancelCellEditing() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public Object getCellEditorValue() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean isCellEditable(EventObject arg0) {
+				int col = table.getSelectedColumn();
+				if (col<1)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+
+			@Override
+			public void removeCellEditorListener(CellEditorListener arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public boolean shouldSelectCell(EventObject arg0) {
+				int col = table.getSelectedColumn();
+				if (col<1)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+
+			@Override
+			public boolean stopCellEditing() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Component getTableCellEditorComponent(JTable arg0,
+					Object arg1, boolean arg2, int arg3, int arg4) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		});
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e)
 			{
+				String text = userInputField.getText();
+				while(text.contains(" "))
+				{
+					text.replaceAll(" ", "");
+				}
 				int row = table.getSelectedRow();
 				if(row<0)
 				{
@@ -67,7 +158,12 @@ public class VTablePanel extends JPanel
 						for (int j = 0; j < 22; j++) 
 						{
 							String cellName = columnNames[i] + rowNames[j];
-							if(userInputField.getText().substring(0,4).contains(s)
+							String text1 = text.substring(0,cellName.length() + 1).toUpperCase();
+							if(text.equalsIgnoreCase(cellName + "="))
+							{
+								table.clearSelection();
+								
+							}
 						}
 					}
 					
