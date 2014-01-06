@@ -20,7 +20,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
 //TODO:REMEMBER COLORED CELLS
@@ -28,20 +27,19 @@ import javax.swing.SwingUtilities;
 public class VTablePanel extends JPanel
 {
 	protected VTextField userInputField;
-	private JTable table;
+	private VTable table;
 	
 	public VTablePanel()
 	{
 		super(new BorderLayout());
 		
-		table = new JTable(new VTableModel());
-		
+		table = new VTable(new VTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
-		table.add
+		
 		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
 		
