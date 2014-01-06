@@ -13,7 +13,6 @@ public class VTable extends JTable{
 	public void setValueAt(String value, int row, int col)
 	{
 		getModel().setValueAt(value, row, col);
-		firePropertyChange();
 	}
 
 }

@@ -21,11 +21,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 //TODO:REMEMBER COLORED CELLS
 //TODO:L Find a way to display row names
 public class VTablePanel extends JPanel
 {
+	private static final String[] columnNames = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
+	private static final String[] rowNames = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"};
 	protected VTextField userInputField;
 	private VTable table;
 	
@@ -51,6 +55,26 @@ public class VTablePanel extends JPanel
 		userInputField.setSize(new Dimension(500, 20));
 		
 		add(userInputField, BorderLayout.SOUTH);
+		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				int row = table.getSelectedRow();
+				if(row<0)
+				{
+					for (int i = 0; i < 12; i++) 
+					{
+						for (int j = 0; j < 22; j++) 
+						{
+							String cellName = columnNames[i] + rowNames[j];
+							if(userInputField.getText().substring(0,4).contains(s)
+						}
+					}
+					
+				}
+				//FIXME
+			}
+		});
 		
 		JMenuBar menu = new JMenuBar();
 		
