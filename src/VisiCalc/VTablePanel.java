@@ -51,7 +51,7 @@ public class VTablePanel extends JPanel
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
-		table.setDefaultEditor(String.class, new DefaultCellEditor(userInputField));
+		table.setDefaultEditor(String.class, new VCellEditor(userInputField));//FIXME
 		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
 		
