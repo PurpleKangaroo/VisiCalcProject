@@ -6,15 +6,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
-import java.net.URISyntaxException;
-import java.util.EventObject;
 import java.util.Scanner;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -23,13 +19,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 
 //TODO:REMEMBER COLORED CELLS
 //TODO:L Find a way to display row names
@@ -82,7 +77,6 @@ public class VTablePanel extends JPanel
 							String text1 = text.substring(0,cellName.length() + 1).toUpperCase();
 							if(text.equalsIgnoreCase(cellName + "="))
 							{
-								table.clearSelection();
 								
 							}
 						}
@@ -91,7 +85,13 @@ public class VTablePanel extends JPanel
 				}
 				//FIXME
 			}
-		});
+		});		
+		
+		for (int i = 1; i<table.getColumnCount(); i++)
+		{
+			TableColumn column = table.getColumnModel().getColumn(i);
+			column.setCellEditor(new Edit());
+		}
 		
 		JMenuBar menu = new JMenuBar();
 		
@@ -163,6 +163,53 @@ public class VTablePanel extends JPanel
 	private class CtrlSListener //implements (Sometype of listener)
 	{
 		//FIXME fill
+	}
+	
+	private class Edit extends AbstractCellEditor implements TableCellEditor
+	{
+		private JTextField field;
+		private String str;
+		
+		public void addTextField(JTextField field)
+		{
+			this.field = field;
+		}
+		
+		@Override
+		public Object getCellEditorValue() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value,
+				boolean selected, int row, int col) {
+			//FIXME : Deleate?
+			if(selected)
+			{
+				table.changeSelection(row, col, false, false);
+			}
+			String text = userInputField.getText();
+			while(text.contains(" "))
+			{
+				text.replaceAll(" ", "");
+			}
+			for (int i = 0; i < 12; i++) 
+			{
+				for (int j = 0; j < 22; j++) 
+					{
+					String cellName = columnNames[i] + rowNames[j];
+					String text1 = text.substring(0,cellName.length() + 1).toUpperCase();
+					if(text.equalsIgnoreCase(cellName + "="))
+					{
+						
+					}
+				}
+			}
+				
+			return null;
+		}
+		
 	}
 
 	private class SaveAsListener implements ActionListener
