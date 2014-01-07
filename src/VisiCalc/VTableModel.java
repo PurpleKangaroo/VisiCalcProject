@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Holt Maki
  *
  */
-public class VTableModel extends AbstractTableModel implements TableModelListener{
+public class VTableModel extends AbstractTableModel {
 	private static final String[] columnNames = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
 	private static final String[] rowNames = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"};
 	private Cell[][] rawCells;
@@ -94,13 +94,6 @@ public class VTableModel extends AbstractTableModel implements TableModelListene
 	{
 		spreadsheet.changeSpreadsheetValue(row, col-1, value);
 		fireTableCellUpdated(row, col);
-	}
-
-	public void tableChanged(TableModelEvent e) {
-		int row = e.getFirstRow();
-		int column = e.getColumn();
-		
-		
 	}
 	
 	public String getColumnName(int col)

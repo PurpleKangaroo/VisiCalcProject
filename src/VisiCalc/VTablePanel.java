@@ -6,15 +6,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
-import java.net.URISyntaxException;
-import java.util.EventObject;
 import java.util.Scanner;
 
+import javax.swing.AbstractCellEditor;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -23,12 +20,17 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 //TODO:REMEMBER COLORED CELLS
 //TODO:L Find a way to display row names
@@ -43,12 +45,17 @@ public class VTablePanel extends JPanel
 	{
 		super(new BorderLayout());
 		
+		userInputField = new VTextField();
+		userInputField.setSize(new Dimension(500, 20));
+		
 		table = new VTable(new VTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
 		table.setSelectionBackground(new Color(255, 250, 205));
 		table.setRowSelectionAllowed(false);
 		table.setCellSelectionEnabled(true);
+		table.setDefaultEditor(String.class, new VTableCellEditor(userInputField));
+		//FIXME put in cell editor here.
 		
 		//TODO Prevent columns from moving
 		//TODO MAKE AN AUTORESIZE OPTION FOR THE USER
@@ -57,91 +64,8 @@ public class VTablePanel extends JPanel
 		
 		add(scroll, BorderLayout.CENTER);
 		
-		userInputField = new VTextField();
-		userInputField.setSize(new Dimension(500, 20));
-		
 		add(userInputField, BorderLayout.SOUTH);
 		
-		table.setCellEditor(new TableCellEditor(){
-
-			@Override
-			public void addCellEditorListener(CellEditorListener arg0) {
-				class CellEditorListen implements CellEditorListener{
-
-					@Override
-					public void editingCanceled(ChangeEvent arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void editingStopped(ChangeEvent arg0) {
-						stopCellEditing();
-						
-					}
-					
-				}
-				
-			}
-
-			@Override
-			public void cancelCellEditing() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public Object getCellEditorValue() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public boolean isCellEditable(EventObject arg0) {
-				int col = table.getSelectedColumn();
-				if (col<1)
-				{
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-
-			@Override
-			public void removeCellEditorListener(CellEditorListener arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public boolean shouldSelectCell(EventObject arg0) {
-				int col = table.getSelectedColumn();
-				if (col<1)
-				{
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-
-			@Override
-			public boolean stopCellEditing() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public Component getTableCellEditorComponent(JTable arg0,
-					Object arg1, boolean arg2, int arg3, int arg4) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-		});
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e)
 			{
@@ -161,7 +85,6 @@ public class VTablePanel extends JPanel
 							String text1 = text.substring(0,cellName.length() + 1).toUpperCase();
 							if(text.equalsIgnoreCase(cellName + "="))
 							{
-								table.clearSelection();
 								
 							}
 						}
@@ -170,7 +93,7 @@ public class VTablePanel extends JPanel
 				}
 				//FIXME
 			}
-		});
+		});	
 		
 		JMenuBar menu = new JMenuBar();
 		
@@ -213,7 +136,7 @@ public class VTablePanel extends JPanel
 		}
 	}
 	
-	private class OpenListener implements ActionListener
+	private class OpenListener implements ActionListener, TableModelListener
 	{
 
 		@Override
@@ -234,6 +157,12 @@ public class VTablePanel extends JPanel
 				//NOTHING
 			}
 			
+			
+		}
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			// TODO Auto-generated method stub
 			
 		}
 		
