@@ -32,8 +32,7 @@ public class VTableCellEditor extends DefaultCellEditor
 	
 	public boolean stopCellEditing()
 	{
-		textField = (JTextField)getComponent();
-		
+		return false;
 	}
 
 }
