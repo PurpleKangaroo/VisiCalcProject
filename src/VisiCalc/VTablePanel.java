@@ -136,7 +136,7 @@ public class VTablePanel extends JPanel
 		}
 	}
 	
-	private class OpenListener implements ActionListener, TableModelListener
+	private class OpenListener implements ActionListener
 	{
 
 		@Override
@@ -157,12 +157,6 @@ public class VTablePanel extends JPanel
 				//NOTHING
 			}
 			
-			
-		}
-
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 		

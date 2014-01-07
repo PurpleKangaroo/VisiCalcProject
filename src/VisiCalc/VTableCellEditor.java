@@ -1,6 +1,7 @@
 package VisiCalc;
 
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
@@ -14,6 +15,9 @@ public class VTableCellEditor extends DefaultCellEditor
 	public VTableCellEditor(JTextField textfield) {
 		super(textfield);
 		textField = textfield;
+		
+		//FIXME add method that contains the next lien
+		textField.getActionMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER), 0);
 	}
 	
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col)
