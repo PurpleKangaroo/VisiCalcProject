@@ -16,7 +16,7 @@ public class VTableCellEditor extends DefaultCellEditor
 		super(textfield);
 		textField = textfield;
 		
-		//FIXME add method that contains the next lien
+		//FIXME add method that contains the next line.
 		textField.getActionMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER), 0);
 	}
 	

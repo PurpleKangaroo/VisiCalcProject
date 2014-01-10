@@ -120,8 +120,6 @@ public class SpreadsheetGen {
 
 	public static void main(String[] args) throws CharNotFoundException
 	{
-		
-		
 		Spreadsheet test = new Spreadsheet();
 		test.printSpreadsheet();
 		Scanner sc = new Scanner(System.in);

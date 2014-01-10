@@ -27,6 +27,10 @@ public class Spreadsheet {
 		}
 	}
 	
+	/**
+	 * Getter for the maximum length of a cell so the spreadsheet knows how wide to make everything.
+	 * @return the number of characters in the cell which has the greatest length.
+	 */
 	private int getMaxLength()
 	{
 		int a = 0;
@@ -41,6 +45,9 @@ public class Spreadsheet {
 		return a;
 	}
 	
+	/**
+	 * Prints out the spreadsheet.
+	 */
 	public void printSpreadsheet() {
 		
 		for (int i = 0; i < 12; i++) {
@@ -60,17 +67,31 @@ public class Spreadsheet {
 		cells[column][row] = new Cell(newValue);
 	}
 	
+	/**
+	 * Getter for the maximum length of a cell so the spreadsheet knows how wide to make everything.
+	 * @param the column of the cell to return the value of.
+	 * @param the row of the cell to return the value of.
+	 * @return the value of the declared cell as a string.
+	 */
 	public String getCellVal(int col, int row)
 	{
 		String a = cells[col][row].getCellString();
 		return a;
 	}
 	
+	/**
+	 * Returns all the cells in the spreadsheet as an array.
+	 * @return the array of cells.
+	 */
 	protected Cell[][] getCells()
 	{
 		return cells;
 	}
 	
+	/**
+	 * Saves the current spreadsheet 
+	 * @param the desired spreadsheet file name.
+	 */
 	public void save(String filename) throws FileNotFoundException, URISyntaxException
 	{
 		fileName = filename;

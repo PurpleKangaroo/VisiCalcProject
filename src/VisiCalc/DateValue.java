@@ -12,6 +12,9 @@ public class DateValue extends Value{
 		setDisplayStr(value + "");
 	}
 	
+	/**
+	 * Sets the value of a date cell type.
+	 */
 	private void setValue()
 	{
 		String dateStr = getInputStr();

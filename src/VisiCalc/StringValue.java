@@ -9,6 +9,9 @@ public class StringValue extends Value{
 		//displayValue();
 	}
 
+	/**
+	 * Sets the value of a String cell type.
+	 */
 	private void setValue()
 	{
 		value = getInputStr().substring(1, getInputStr().length() -1);

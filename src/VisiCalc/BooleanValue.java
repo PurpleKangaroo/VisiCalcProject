@@ -10,6 +10,9 @@ public class BooleanValue extends Value {
 		setValue();
 	}
 	
+	/**
+	 * Sets the value of a boolean cell type.
+	 */
 	private void setValue()
 	{
 		String a = getInputStr();
