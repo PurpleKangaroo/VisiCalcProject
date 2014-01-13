@@ -10,14 +10,21 @@ public class Value {
 	private static Value[][] cellValues = new Value[22][12];//Holds all values so that cells that contain another cells value in a formula can get the cell value
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	private String inputStr;
+	
 	/**
-	 * Creates an object that represents the value of a cell
+	 * Creates an object that represents the value of a cell.
+	 * See value subtypes {@linkplain BooleanValue}, {@linkplain DateValue}, {@linkplain FormulaValue}, {@linkplain NumberValue}.
+	 * @param valueString - the user input typed into the cell to be interpreted as some type of value.
 	 */
 	public Value(String valueString)
 	{
 		inputStr = valueString;
 	}
 	
+	/**
+	 * Gets the value in String form so that it may be displayed in the spreadsheet
+	 * @return displayStr - the value in the String Form that will be displayed in the spreadsheet
+	 */
 	public void setDisplayStr(String str)
 	{
 		displayStr = str;

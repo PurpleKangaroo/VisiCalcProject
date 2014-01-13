@@ -4,6 +4,9 @@ public class BooleanValue extends Value {
 	
 	private boolean value;
 	
+	/**
+	 * A type object representing a Boolean value type within a cell.
+	 */
 	public BooleanValue(String ValueString)
 	{
 		super(ValueString);
