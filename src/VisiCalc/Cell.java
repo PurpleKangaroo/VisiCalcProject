@@ -12,12 +12,18 @@ import java.util.ArrayList;
 
 //TODO - make changes so that string is in "double quotes"
 public class Cell {
-	private String cellStr; //Example: "Devon"
-	private String displayString; //Example: Devon
+	private String cellStr; //Example display: "Devon"
+	private String displayString; //Example display: Devon
 	private ValueType type;
 	private Value value;
 	private boolean currency;
 	//TODO - make the formula accept commands like ">frac" and ">dec" so that numbers can be converted from fractions to decimals
+	
+	/**
+	 * Creates a cell object.
+	 * See {@linkplain Value}, the object type belonging to the cell's contents themselves.
+	 * @param cellString - the user input typed into the cell to be interpreted as some type of value.
+	 */
 	public Cell(String cellString)//Receives the user's input.
 	{
 		cellStr = cellString;
@@ -26,6 +32,9 @@ public class Cell {
 		setValue();
 	}
 	
+	/**
+	 * Sets the type of value contained in the cell based on what setValueType method has determined.
+	 */
 	private void setValue()
 	{
 		switch(type)//USE A SWITCH TO DERTERMINE THE TYPE OF Value THAT THE CELL SHOULD CONTAIN
@@ -48,6 +57,9 @@ public class Cell {
 		}
 	}
 	
+	/**
+	 * Determines if the user input should be interpreted as currency and sets whether this is true or false.
+	 */
 	private void setCurrency()
 	{
 		if(cellStr.contains("$"))
@@ -61,7 +73,10 @@ public class Cell {
 		}
 	}
 	
-	private void setValueType()
+	/**
+	 * Tests for each value type to determine which the cell should contain.
+	 */
+	private void setValueType()//TODO: this does not appear to actually set the value type?
 	{
 		boolean found = false;
 		type = null;
@@ -95,10 +110,14 @@ public class Cell {
 	}
 	
 	
-	
+	/**
+	 * Tests the value stored in the cell to see if it should be of the date type.
+	 * @param cellString - the value stored in the cell to be tested as a date.
+	 * @return dayTest - whether or not the cellString is a date.
+	 */
 	private boolean dateTest(String cellString)
 	{
-		boolean date = false;
+		boolean dayTest = false;
 		try
 		{
 			if (cellString.charAt(2) == '/' && cellString.charAt(5) == '/'&& cellString.length() == 9)
@@ -117,14 +136,14 @@ public class Cell {
 					int day = Integer.parseInt(dateStr.substring(2,4));
 					if (validateDate(day, monthInt, yr))
 					{
-						date = true;
+						dayTest = true;
 						type = ValueType.DATE;
 					}
 				}
 			
 				catch (Exception exception)
 				{
-					date = false;
+					dayTest = false;
 					type = null;
 				}
 			}
@@ -134,9 +153,14 @@ public class Cell {
 			
 		}
 		
-		return date;
+		return dayTest;
 	}
 
+	/**
+	 * Tests the value stored in the cell to see if it should be of the Boolean type.
+	 * @param cellString - the value stored in the cell to be tested as a Boolean.
+	 * @return booleanTest - whether or not the cellString is a Boolean.
+	 */
 	private boolean booleanTest(String cellString)
 	{
 		boolean booleanTest;
@@ -154,16 +178,20 @@ public class Cell {
 		return booleanTest;
 	}
 	
- 	
+	/**
+	 * Tests the value stored in the cell to see if it should be of the fraction type.
+	 * @param cellString - the value stored in the cell to be tested as a fraction.
+	 * @return fracTest - whether or not the cellString is a fraction.
+	 */
 	private boolean fractionTest(String cellString)
 	{
-		boolean fractionTest = true;
+		boolean fracTest = true;
 		type = ValueType.FRACTION;
 		char[] validChars = {'1', '2', '3', '4', '5', '6', '7', '8','9', '0'};
 		String fracString = cellString + "";
 		fracString.replace("/", "");
 		
-		for(int i = 0; i<cellString.length() && fractionTest == true; i++)
+		for(int i = 0; i<cellString.length() && fracTest == true; i++)
 		{
 			boolean validChar = false;
 			for (int n = 0; n<10; n++)
@@ -175,13 +203,18 @@ public class Cell {
 			}
 			if (!validChar)
 			{
-				fractionTest = false;
+				fracTest = false;
 				type = null;
 			}
 		}
-		return fractionTest;
+		return fracTest;
 	}
 
+	/**
+	 * Tests the value stored in the cell to see if it should be of the number type.
+	 * @param cellString - the value stored in the cell to be tested as a number.
+	 * @return numTest - whether or not the cellString is a number.
+	 */
 	private boolean numberTest(String cellString)
 	{//TODO: FIX
 		boolean numTest = true;
@@ -201,6 +234,11 @@ public class Cell {
 		return numTest;
 	}
 	
+	/**
+	 * Tests the value stored in the cell to see if it should be of the formula type.
+	 * @param cellString - the value stored in the cell to be tested as a formula.
+	 * @return formTest - whether or not the cellString is a formula.
+	 */
 	private boolean formulaTest(String cellString)
 	{
 		char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
@@ -222,33 +260,45 @@ public class Cell {
 		}
 		
 		String cellString1 = cellString + "";
-		boolean formula = false;
+		boolean formTest = false;
 		if(cellString1.contains(" + ") || cellString1.contains(" / ") || cellString1.contains(" * ") || cellString1.contains(" - ") || cellString1.contains(" ^ ") || cellString1.contains("\\sum\\") ||cellString1.contains("\\avg\\")||found);
 		{
 			type = ValueType.FORMULA;
-			formula = true;
+			formTest = true;
 		}
 		
 		
-		return formula;
+		return formTest;
 	}
 	
+	/**
+	 * Tests the value stored in the cell to see if it should be of the string type.
+	 * @param cellString - the value stored in the cell to be tested as a string.
+	 * @return strTest - whether or not the cellString is a string.
+	 */
 	private boolean stringTest(String cellString)
 	{
-		boolean found = false;
+		boolean strTest = false;
 		if(cellString.charAt(0) == '\"' && cellString.charAt(cellString.length() - 1) == '\"')
 		{
 			type = ValueType.STRING;
-			found = true;
+			strTest = true;
 		}
 		else
 		{
 			type = null;
-			found = false;
+			strTest = false;
 		}
-		return found;
+		return strTest;
 	}
 	
+	/**
+	 * Checks if a proposed date is valid.
+	 * @param day - the day within the date to be tested.
+	 * @param month - the month within the date to be tested.
+	 * @param year - the year within the date to be tested.
+	 * @return valid - whether or not the day, month, and year provided make a valid date.
+	 */
 	private boolean validateDate(int day, int month, int year)
 	{
 		boolean valid = false;
@@ -310,10 +360,18 @@ public class Cell {
 		return cellString;
 	}
 
-	public String getDisplayString() {
+	/**
+	 * Gets the value in String form so that it may be displayed in the spreadsheet
+	 * @return displayString - the value in the String Form that will be displayed in the spreadsheet
+	 */
+	public String getDisplayString() { //TODO: Value has another method just like this one. Are they both necessary?
 		return displayString;
 	}
 	
+	/**
+	 * Getter for the value of the cell.
+	 * @return value - the value of the cell.
+	 */
 	public Value getValue()
 	{
 		return value;

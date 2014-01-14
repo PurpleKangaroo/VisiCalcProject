@@ -22,8 +22,8 @@ public class Value {
 	}
 	
 	/**
-	 * Gets the value in String form so that it may be displayed in the spreadsheet
-	 * @return displayStr - the value in the String Form that will be displayed in the spreadsheet
+	 * Sets the string to be displayed to the user.
+	 * @param str - the string to be displayed.
 	 */
 	public void setDisplayStr(String str)
 	{

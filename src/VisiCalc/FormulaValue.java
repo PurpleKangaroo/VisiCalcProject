@@ -3,6 +3,11 @@ package VisiCalc;
 public class FormulaValue extends Value{
 	private String formula;
 	private float value;
+	
+	/**
+	 * A value type object representing a formula value type within a cell.
+	 * @param valueString - the user input typed into the cell that has been interpreted as a formula value.
+	 */
 	public FormulaValue(String valueString)
 	{
 		super(valueString);
@@ -67,6 +72,7 @@ public class FormulaValue extends Value{
 		return Str;
 	}
 	
+	//TODO: write these methods
 	private void setValue()
 	{
 		

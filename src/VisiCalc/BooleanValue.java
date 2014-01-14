@@ -5,11 +5,12 @@ public class BooleanValue extends Value {
 	private boolean value;
 	
 	/**
-	 * A type object representing a Boolean value type within a cell.
+	 * A value type object representing a Boolean value type within a cell.
+	 * @param valueString - the user input typed into the cell that has been interpreted as a Boolean value.
 	 */
-	public BooleanValue(String ValueString)
+	public BooleanValue(String valueString)
 	{
-		super(ValueString);
+		super(valueString);
 		setValue();
 	}
 	
