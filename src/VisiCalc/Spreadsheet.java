@@ -89,10 +89,10 @@ public class Spreadsheet {
 	}
 	
 	/**
-	 * Saves the current spreadsheet 
-	 * @param the desired spreadsheet file name.
+	 * Saves the current spreadsheet, under a newly specified file name ("Save As").
+	 * @param the desired spreadsheet file name to save under.
 	 */
-	public void save(String filename) throws FileNotFoundException, URISyntaxException
+	public void save(String filename) throws FileNotFoundException, URISyntaxException //this is a "save as" method, not done in error
 	{
 		fileName = filename;
 		File saveFile = new File((new PathFinder()).getVisiCalc_Path(filename+".txt"));
@@ -104,6 +104,9 @@ public class Spreadsheet {
 		}
 	}
 	
+	/**
+	 * Saves the current spreadsheet in its current state, overwriting previous versions, if any.
+	 */
 	public void save() throws URISyntaxException, FileNotFoundException
 	{
 		File saveFile = new File((new PathFinder()).getVisiCalc_Path(fileName+".txt"));
@@ -113,9 +116,13 @@ public class Spreadsheet {
 				out.println(cells[i][j].getValue().getInputStr());
 			}
 		}
-		//FIXME add a try catch for this elswhere in the source code in case of the spreadsheet not having a filename.
+		//FIXME add a try catch for this elsewhere in the source code in case of the spreadsheet not having a filename.
 	}
 	
+	/**
+	 * Loads the spreadsheet from the user-specified file name call.
+	 * @param the desired spreadsheet file name to load.
+	 */
 	public void load(String filename)
 	{
 		fileName = filename;
