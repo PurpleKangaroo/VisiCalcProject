@@ -39,7 +39,6 @@ public class Calculator {
 	{
 		expression.replaceAll("x", "*");
 		format();
-		
 		while(expression.contains("("))
 			{
 				parenthesis();
@@ -289,7 +288,7 @@ public class Calculator {
 		{
 			for (int j = 22; j > 0; j--)
 			{
-				expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j));
+				expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j).replaceAll("\"", ""));
 			}
 		}
 	}

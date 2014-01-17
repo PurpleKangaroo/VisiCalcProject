@@ -110,7 +110,7 @@ public class SpreadsheetGen {
 		if (assignment.contains("+") || assignment.contains("-") || assignment.contains("*")
 				|| assignment.contains("/") || assignment.contains("^"))
 		{
-			Calculator calcExpression = new Calculator(assignment);
+			Calculator calcExpression = new Calculator(assignment, this.);
 			assignment = calcExpression.getValue() + "";
 		}
 		sheet = modifyCell(col,row,sheet, assignment);
