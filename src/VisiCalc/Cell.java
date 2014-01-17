@@ -279,7 +279,7 @@ public class Cell {
 	private boolean stringTest(String cellString)
 	{
 		boolean strTest = false;
-		if(cellString.charAt(0) == '\"' && cellString.charAt(cellString.length() - 1) == '\"')
+		if(cellString.charAt(0) == '"' && cellString.charAt(cellString.length() - 1) == '"')//not sure if there needs to be an escape sequence for this character
 		{
 			type = ValueType.STRING;
 			strTest = true;

@@ -21,7 +21,7 @@ public class Spreadsheet {
 		cells = new Cell[12][22];
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 22; j++) {
-				cells[i][j] = new Cell("\"0\"");
+				cells[i][j] = new Cell("0");
 				//FIXME: make it so that the cell is initialized as a number, but fix number test in cell first
 			}
 		}
@@ -69,8 +69,8 @@ public class Spreadsheet {
 	
 	/**
 	 * Getter for the maximum length of a cell so the spreadsheet knows how wide to make everything.
-	 * @param the column of the cell to return the value of.
-	 * @param the row of the cell to return the value of.
+	 * @param col - the column of the cell to return the value of.
+	 * @param row - the row of the cell to return the value of.
 	 * @return the value of the declared cell as a string.
 	 */
 	public String getCellVal(int col, int row)

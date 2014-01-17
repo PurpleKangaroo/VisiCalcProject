@@ -97,7 +97,7 @@ public class SpreadsheetGen {
 			}
 			z = a.length();
 		}
-		a = a.replaceAll("\"", "");
+		//causes strings to be regognized as formulas: a = a.replaceAll("\"", "");
 		return a;
 	}
 	

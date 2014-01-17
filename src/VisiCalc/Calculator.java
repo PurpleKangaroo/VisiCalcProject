@@ -7,9 +7,22 @@ import java.util.Stack;
 public class Calculator {
 	private String expression;
 	private float value;
+	private static final char[] characters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
 	
 	/**
-	 * Creates a Calculator object that takes input in the form of a math expression and calculates the result.
+	 * Creates a Calculator object that takes input in the form of a math expression and calculates the result. Needs a spreadsheet.
+	 * @param expression - the expression to be calculated.
+	 * @param spread - the spreadsheet cell names are obtained from.
+	 */
+	public Calculator(String expression, Spreadsheet spread)
+	{
+		this.expression = expression;
+		replaceCellName(spread);
+		Calculate();
+	}
+
+	/**
+	 * Creates a Calculator object that takes input in the form of a math expression and calculates the result. Does not need a spreadsheet.
 	 * @param expression - the expression to be calculated.
 	 */
 	public Calculator(String expression)
@@ -17,7 +30,7 @@ public class Calculator {
 		this.expression = expression;
 		Calculate();
 	}
-
+	
 	/**
 	 * Calculates the expression, first by formatting it correctly (no x for multiplication and spaces evenly distributed)
 	 * After this, it does the evaluation.
@@ -264,5 +277,20 @@ public class Calculator {
 			}
 		}
 		value = numberStack.pop();
+	}
+	
+	/**
+	 * Replaces the cell's names with their values in string form.
+	 * @param spread - the spreasheet cell values are obtained from.
+	 */
+	private void replaceCellName(Spreadsheet spread)
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			for (int j = 22; j > 0; j--)
+			{
+				expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j));
+			}
+		}
 	}
 }
