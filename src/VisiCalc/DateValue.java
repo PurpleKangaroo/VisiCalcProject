@@ -5,6 +5,10 @@ import java.util.GregorianCalendar;
 public class DateValue extends Value{
 	private GregorianCalendar value;
 	
+	/**
+	 * A value type object representing a date value type within a cell.
+	 * @param valueString - the user input typed into the cell that has been interpreted as a date value.
+	 */
 	public DateValue(String valueString) 
 	{
 		super(valueString);
@@ -12,6 +16,9 @@ public class DateValue extends Value{
 		setDisplayStr(value + "");
 	}
 	
+	/**
+	 * Sets the value of a date cell type.
+	 */
 	private void setValue()
 	{
 		String dateStr = getInputStr();
@@ -20,6 +27,10 @@ public class DateValue extends Value{
 									Integer.parseInt(dateStr.substring(3, 5)));
 	}
 
+	/**
+	 * Returns the date value of the cell.
+	 * @return value - the value (returned as a GregorianCalendar date).
+	 */
 	public GregorianCalendar getDateValue()
 	{
 		return value;

@@ -97,7 +97,7 @@ public class SpreadsheetGen {
 			}
 			z = a.length();
 		}
-		a = a.replaceAll("\"", "");
+		//causes strings to be regognized as formulas: a = a.replaceAll("\"", "");
 		return a;
 	}
 	
@@ -110,7 +110,7 @@ public class SpreadsheetGen {
 		if (assignment.contains("+") || assignment.contains("-") || assignment.contains("*")
 				|| assignment.contains("/") || assignment.contains("^"))
 		{
-			Calculator calcExpression = new Calculator(assignment);
+			Calculator calcExpression = new Calculator(assignment, this.);
 			assignment = calcExpression.getValue() + "";
 		}
 		sheet = modifyCell(col,row,sheet, assignment);
@@ -120,8 +120,6 @@ public class SpreadsheetGen {
 
 	public static void main(String[] args) throws CharNotFoundException
 	{
-		
-		
 		Spreadsheet test = new Spreadsheet();
 		test.printSpreadsheet();
 		Scanner sc = new Scanner(System.in);

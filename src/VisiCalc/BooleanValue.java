@@ -4,12 +4,19 @@ public class BooleanValue extends Value {
 	
 	private boolean value;
 	
-	public BooleanValue(String ValueString)
+	/**
+	 * A value type object representing a Boolean value type within a cell.
+	 * @param valueString - the user input typed into the cell that has been interpreted as a Boolean value.
+	 */
+	public BooleanValue(String valueString)
 	{
-		super(ValueString);
+		super(valueString);
 		setValue();
 	}
 	
+	/**
+	 * Sets the value of a boolean cell type.
+	 */
 	private void setValue()
 	{
 		String a = getInputStr();

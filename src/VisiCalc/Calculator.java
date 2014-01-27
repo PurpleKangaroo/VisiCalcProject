@@ -7,18 +7,38 @@ import java.util.Stack;
 public class Calculator {
 	private String expression;
 	private float value;
+	private static final char[] characters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
 	
+	/**
+	 * Creates a Calculator object that takes input in the form of a math expression and calculates the result. Needs a spreadsheet.
+	 * @param expression - the expression to be calculated.
+	 * @param spread - the spreadsheet cell names are obtained from.
+	 */
+	public Calculator(String expression, Spreadsheet spread)
+	{
+		this.expression = expression;
+		replaceCellName(spread);
+		Calculate();
+	}
+
+	/**
+	 * Creates a Calculator object that takes input in the form of a math expression and calculates the result. Does not need a spreadsheet.
+	 * @param expression - the expression to be calculated.
+	 */
 	public Calculator(String expression)
 	{
 		this.expression = expression;
 		Calculate();
 	}
-
+	
+	/**
+	 * Calculates the expression, first by formatting it correctly (no x for multiplication and spaces evenly distributed)
+	 * After this, it does the evaluation.
+	 */
 	private void Calculate()
 	{
 		expression.replaceAll("x", "*");
 		format();
-		
 		while(expression.contains("("))
 			{
 				parenthesis();
@@ -100,11 +120,20 @@ public class Calculator {
 		expression = expression + " ";
 	}
 	
+	/**
+	 * Returns the value of the expression.
+	 * @return value - the calculated value.
+	 */
 	public float getValue()
 	{
 		return value;
 	}
 	
+	/**
+	 * Uses recursion to make a new calculator for each set of parenthesis.
+	 * It breaks the expression into the lowest level of parenthesis first.
+	 * Works its way up so it can calculate using order of operations.
+	 */
 	private void parenthesis()
 	{
 		String parenthesisExpr = expression.substring(expression.indexOf("("), findEndParenthisis() +1);
@@ -113,6 +142,10 @@ public class Calculator {
 		expression.replaceFirst(parenthesisExpr, parenthesisCalc.getValue() + "");
 	}
 	
+	/**
+	 * Uses recursion to make a new calculator for each set of parenthesis.
+	 * @return endParenthesis - the location (an integer) of the final parenthesis of the expression.
+	 */
 	private int findEndParenthisis()
 	{
 		boolean found = false;
@@ -138,6 +171,9 @@ public class Calculator {
 		return endParenthesis;
 	}
 	
+	/**
+	 * Evaluates the input expression using order of operations to give an accurate value.
+	 */
 	private void evaluate()
 	{
 		Stack<Float> numberStack = new Stack<Float>();
@@ -240,5 +276,20 @@ public class Calculator {
 			}
 		}
 		value = numberStack.pop();
+	}
+	
+	/**
+	 * Replaces the cell's names with their values in string form.
+	 * @param spread - the spreasheet cell values are obtained from.
+	 */
+	private void replaceCellName(Spreadsheet spread)
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			for (int j = 22; j > 0; j--)
+			{
+				expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j).replaceAll("\"", ""));
+			}
+		}
 	}
 }

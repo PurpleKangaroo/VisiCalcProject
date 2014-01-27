@@ -29,8 +29,7 @@ public class PathFinder {
 
 	/**
 	 * Gets the path of the pathfinder.
-	 * @return CAH_Path - the path of the pathfinder
-	 * @since CAH1.0
+	 * @return VisiCalc_Path - the path of the pathfinder.
 	 */
 	public String getVisiCalc_Path()
 	{
