@@ -286,9 +286,9 @@ public class Calculator {
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			for (int j = 22; j > 0; j--)
+			for (int j = 21; j > 0; j--)
 			{
-				expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j).replaceAll("\"", ""));
+				expression = expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j).replaceAll("\"", ""));
 			}
 		}
 	}
