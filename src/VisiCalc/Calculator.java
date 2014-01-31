@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Calculator {
 	private String expression;
-	private float value;
+	private Object value;
 	private static final String[] characters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
 	
 	/**
@@ -43,7 +43,14 @@ public class Calculator {
 			{
 				parenthesis();
 			}
-		evaluate();
+		try
+		{
+			evaluate();
+		}		
+		catch(Exception e)
+		{
+			value = expression.replaceAll("\\+", "");
+		}
 	}
 	
 	/**
@@ -61,8 +68,8 @@ public class Calculator {
 		{
 			expression.substring(0, expression.length() - 1);
 		}
-		String[] whitespace1 = {" *", "* ", " /", "/ ", "+ ", " +", "- ", " -", "( ", " (", " )", ") ", "^ ", " ^"};
-		String[] whitespace2 = {"*", "*", "/", "/", "+", "+", "-", "-", "(", "(", ")", ")", "^", "^"};
+		String[] whitespace1 = {" *", "* ", " /", "/ ", "\\+ ", " \\+", "- ", " -", "( ", " (", " )", ") ", "^ ", " ^"};
+		String[] whitespace2 = {"*", "*", "/", "/", "\\+", "\\+", "-", "-", "(", "(", ")", ")", "^", "^"};
 		for(int i = 0; i < whitespace1.length; i++)
 		{
 			while(expression.contains(whitespace1[i]))
@@ -124,9 +131,9 @@ public class Calculator {
 	 * Returns the value of the expression.
 	 * @return value - the calculated value.
 	 */
-	public float getValue()
+	public String getValue()
 	{
-		return value;
+		return value + "";
 	}
 	
 	/**
