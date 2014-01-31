@@ -288,7 +288,8 @@ public class Calculator {
 		{
 			for (int j = 21; j > 0; j--)
 			{
-				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j).replaceAll("\"", "")).toUpperCase());
+				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j).replaceAll("\"", "")));
+				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j).replaceAll("\"", "")).toLowerCase());
 			}
 		}
 	}
