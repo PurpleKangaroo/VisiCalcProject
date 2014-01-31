@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class SpreadsheetGen {
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
-	//This is a temporary way of printing the spreadsheet while the VFrame is still being implemented.
 	
 	public static int getAlphabetIndex(char letter) throws CharNotFoundException
 	{

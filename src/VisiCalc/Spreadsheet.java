@@ -49,11 +49,17 @@ public class Spreadsheet {
 	 * Prints out the spreadsheet.
 	 */
 	public void printSpreadsheet() {
-		
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 22; i++)
+		{
+			System.out.print(i + 1);
+		}
+		System.out.println();
+		for (int i = 0; i < 12; i++)
+		{
+			System.out.print(alphabet[i] + " |  ");
 			for (int j = 0; j < 22; j++) {
 				String a = cells[i][j].getCellString();
-				for (int b = getMaxLength();a.length()<b;)//work on formatitng the spreadshert
+				for (int b = getMaxLength();a.length()<b;)
 				{
 					a = a +" ";
 				}
@@ -87,46 +93,4 @@ public class Spreadsheet {
 	{
 		return cells;
 	}
-	
-	/**
-	 * Saves the current spreadsheet, under a newly specified file name ("Save As").
-	 * @param the desired spreadsheet file name to save under.
-	 */
-	public void save(String filename) throws FileNotFoundException, URISyntaxException //this is a "save as" method, not done in error
-	{
-		fileName = filename;
-		File saveFile = new File((new PathFinder()).getVisiCalc_Path(filename+".txt"));
-		PrintWriter out = new PrintWriter(saveFile);
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				out.println(cells[i][j].getValue().getInputStr());
-			}
-		}
-	}
-	
-	/**
-	 * Saves the current spreadsheet in its current state, overwriting previous versions, if any.
-	 */
-	public void save() throws URISyntaxException, FileNotFoundException
-	{
-		File saveFile = new File((new PathFinder()).getVisiCalc_Path(fileName+".txt"));
-		PrintWriter out = new PrintWriter(saveFile);
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				out.println(cells[i][j].getValue().getInputStr());
-			}
-		}
-		//FIXME add a try catch for this elsewhere in the source code in case of the spreadsheet not having a filename.
-	}
-	
-	/**
-	 * Loads the spreadsheet from the user-specified file name call.
-	 * @param the desired spreadsheet file name to load.
-	 */
-	public void load(String filename)
-	{
-		fileName = filename;
-		//FIXME fill
-	}
-	
 }
