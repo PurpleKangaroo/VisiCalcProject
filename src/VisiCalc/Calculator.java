@@ -7,7 +7,7 @@ import java.util.Stack;
 public class Calculator {
 	private String expression;
 	private float value;
-	private static final char[] characters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
+	private static final String[] characters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
 	
 	/**
 	 * Creates a Calculator object that takes input in the form of a math expression and calculates the result. Needs a spreadsheet.
@@ -288,7 +288,7 @@ public class Calculator {
 		{
 			for (int j = 21; j > 0; j--)
 			{
-				expression = expression.replaceAll(characters[i] + j + "", spread.getCellVal(i, j).replaceAll("\"", ""));
+				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j).replaceAll("\"", "")).toUpperCase());
 			}
 		}
 	}
