@@ -2,7 +2,7 @@ package VisiCalc;
 
 public class FormulaValue extends Value{
 	private String formula;
-	private float value;
+	private String value;
 	
 	/**
 	 * A value type object representing a formula value type within a cell.
