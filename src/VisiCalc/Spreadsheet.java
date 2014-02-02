@@ -74,7 +74,7 @@ public class Spreadsheet {
 	}
 	
 	public void changeSpreadsheetValue(int row, int column, String newValue) {
-		cells[column][row] = new Cell(newValue);
+		cells[row][column] = new Cell(newValue);
 	}
 	
 	/**
@@ -83,9 +83,9 @@ public class Spreadsheet {
 	 * @param row - the row of the cell to return the value of.
 	 * @return the value of the declared cell as a string.
 	 */
-	public String getCellVal(int col, int row)
+	public String getCellVal(int row, int col)
 	{
-		String a = cells[col][row].getCellString();
+		String a = cells[row][col].getCellString();
 		return a;
 	}
 	

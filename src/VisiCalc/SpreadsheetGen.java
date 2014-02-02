@@ -4,6 +4,40 @@ import java.util.Scanner;
 public class SpreadsheetGen {
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	
+	public static void main(String[] args) throws CharNotFoundException
+	{
+		Spreadsheet test = new Spreadsheet();
+		test.printSpreadsheet();
+		Scanner sc = new Scanner(System.in);
+		String userInput = sc.nextLine();
+		while (!userInput.equalsIgnoreCase("quit"))
+		{
+			userInput = whiteSpace(userInput);
+			if (userInput.contains("clear"))
+			{
+				test = clear(userInput, test);
+			}
+			else if (expContainsCellRef(userInput))
+			{
+				test = changeToOtherCell(userInput, test);
+				//recalc(test);
+			}
+			else if(userInput.contains("="))
+			{
+				test = setCell(userInput, test);
+				//recalc(test);
+			}
+			else
+			{
+				System.out.println("ERROR: Not a valid input");
+			}
+			test.printSpreadsheet();
+			userInput = sc.nextLine();
+		}
+		sc.close();
+		System.out.println("You have decided to quit.");
+	}
+	
 	public static int getAlphabetIndex(char letter) throws CharNotFoundException
 	{
 		String a = letter + "";
@@ -38,19 +72,26 @@ public class SpreadsheetGen {
 		userInput = userInput.replaceAll("CLEAR", "");
 		userInput = userInput.replaceAll(" ", "");
 		String cellName = userInput.substring(userInput.indexOf("clear") + 1);
-		int col = findCellCol(cellName);
 		int row = findCellRow(cellName);
-		sheet = modifyCell(col,row,sheet,"0");
+		int col = findCellCol(cellName);
+		sheet = modifyCell(row, col, sheet, "0");
 		return sheet;
 	}
 	
-	private static Spreadsheet modifyCell(int column, int row, Spreadsheet sheet, String newValue)
+	private static Spreadsheet modifyCell(int row, int column, Spreadsheet sheet, String newValue)
 	{
 		sheet.changeSpreadsheetValue(row, column, newValue);
 		return sheet;
 	}
 	
-	private static int findCellRow(String cellName)
+	private static int findCellRow(String cellName) throws CharNotFoundException
+	{
+		cellName = cellName.replaceAll(" ", "");
+		int cellColumn = getAlphabetIndex(cellName.charAt(0))-1;
+		return cellColumn;
+	}
+	
+	private static int findCellCol(String cellName)
 	{
 		cellName = cellName.replaceAll(" ", "");
 		String cellNum = cellName.substring(1, cellName.length());
@@ -58,22 +99,15 @@ public class SpreadsheetGen {
 		return cellRow;
 	}
 	
-	private static int findCellCol(String cellName) throws CharNotFoundException
-	{
-		cellName = cellName.replaceAll(" ", "");
-		int cellColumn = getAlphabetIndex(cellName.charAt(0))-1;
-		return cellColumn;
-	}
-	
 	private static Spreadsheet changeToOtherCell(String userInput, Spreadsheet sheet) throws CharNotFoundException
 	{
 		String cellName = userInput.substring(0, userInput.indexOf('='));
-		int col = findCellCol(cellName);
 		int row = findCellRow(cellName);
+		int col = findCellCol(cellName);
 		String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
-		int assignC = findCellCol(assignment.replaceAll(" ",""));
 		int assignR = findCellRow(assignment.replaceAll(" ",""));
-		sheet = modifyCell(col,row,sheet, sheet.getCellVal(assignC, assignR));
+		int assignC = findCellCol(assignment.replaceAll(" ",""));
+		sheet = modifyCell(row, col, sheet, sheet.getCellVal(assignC, assignR));
 		return sheet;
 	}
 	
@@ -96,15 +130,15 @@ public class SpreadsheetGen {
 			}
 			z = a.length();
 		}
-		//causes strings to be regognized as formulas: a = a.replaceAll("\"", "");
+		//causes strings to be recognized as formulas: a = a.replaceAll("\"", "");
 		return a;
 	}
 	
 	private static Spreadsheet setCell(String userInput, Spreadsheet sheet) throws CharNotFoundException
 	{
 		String cellName = userInput.substring(0, userInput.indexOf('='));
-		int col = findCellCol(cellName);
 		int row = findCellRow(cellName);
+		int col = findCellCol(cellName);
 		String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
 		if (assignment.contains("+") || assignment.contains("-") || assignment.contains("*")
 				|| assignment.contains("/") || assignment.contains("^"))
@@ -112,49 +146,16 @@ public class SpreadsheetGen {
 			Calculator calcExpression = new Calculator(assignment, sheet);
 			assignment = calcExpression.getValue() + "";
 		}
-		sheet = modifyCell(col,row,sheet, assignment);
+		sheet = modifyCell(row, col, sheet, assignment);
 		return sheet;
 	}
-	
 
-	public static void main(String[] args) throws CharNotFoundException
-	{
-		Spreadsheet test = new Spreadsheet();
-		test.printSpreadsheet();
-		Scanner sc = new Scanner(System.in);
-		String userInput = sc.nextLine();
-		while (!userInput.equalsIgnoreCase("quit"))
-		{
-			userInput = whiteSpace(userInput);
-			if (userInput.contains("clear"))
-			{
-				test = clear(userInput, test);
-			}
-			else if (equalsOtherCell(userInput))
-			{
-				test = changeToOtherCell(userInput, test);
-			}
-			else if(userInput.contains("="))
-			{
-				test = setCell(userInput, test);
-			}
-			else
-			{
-				System.out.println("ERROR: Not a valid input");
-			}
-			test.printSpreadsheet();
-			userInput = sc.nextLine();
-		}
-		sc.close();
-		System.out.println("You have decided to quit.");
-	}
-
-	private static boolean equalsOtherCell(String userInput) {
+	private static boolean expContainsCellRef(String userInput) {
 		boolean found = false;
 		userInput = userInput.toUpperCase();
 		userInput = userInput.replaceAll(" ", "");
 		String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
-		for(int i = 0; i <12 && !found; i++)
+		for(int i = 0; i < 12 && !found; i++)
 		{
 			for(int n = 0; n < 22 && !found; n++)
 			{
@@ -167,6 +168,18 @@ public class SpreadsheetGen {
 			}
 		}
 		return found;
+	}
+	
+	/**
+	 * Recalculates the values of the entire spreadsheet (usually after an update).
+	 **/
+	private static void recalc(Spreadsheet sheet) throws CharNotFoundException
+	{
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 22; j++) {
+				sheet.changeSpreadsheetValue(i, j, sheet.getCellVal(i, j));
+			}
+		}
 	}
 	
 }

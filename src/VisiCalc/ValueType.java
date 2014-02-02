@@ -8,6 +8,6 @@ public enum ValueType {
 	DATE,
 	NUMBER,
 	FORMULA,
-	FRACTION,
-	BOOLEAN;
+	BOOLEAN,
+	FRACTION;
 }
