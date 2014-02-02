@@ -1,6 +1,7 @@
 package VisiCalc;
 
-public class StringValue extends Value{
+public class StringValue extends Value
+{
 	private String value;
 	
 	/**
@@ -10,7 +11,7 @@ public class StringValue extends Value{
 	public StringValue(String valueString) {
 		super(valueString);
 		setValue();
-		//TODO: fix displayValue(); here and below
+		displayValue();
 	}
 
 	/**
@@ -22,18 +23,11 @@ public class StringValue extends Value{
 		setDisplayStr(value + "");
 	}
 	
-	/**
-	 * *********************************************
 	private String displayValue()
 	{
-		String noQuotesValue = value;
-		char a;
-		a = value.charAt(0);
-		noQuotesValue = a + "";
+		String noQuotesValue = value.replace("\"", "");
 		return noQuotesValue;
 	}
-	************************************************
-	**/
 	
 	/**
 	 * Returns the value of a string cell type.

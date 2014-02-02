@@ -68,13 +68,25 @@ public class SpreadsheetGen {
 	
 	private static Spreadsheet clear(String userInput, Spreadsheet sheet) throws CharNotFoundException
 	{
-		userInput = userInput.toUpperCase();
-		userInput = userInput.replaceAll("CLEAR", "");
-		userInput = userInput.replaceAll(" ", "");
-		String cellName = userInput.substring(userInput.indexOf("clear") + 1);
-		int row = findCellRow(cellName);
-		int col = findCellCol(cellName);
-		sheet = modifyCell(row, col, sheet, "0");
+		if (expContainsCellRef(userInput))
+		{
+			String cellName = userInput.substring(5, userInput.length());
+			int row = findCellRow(cellName);
+			int col = findCellCol(cellName);
+			sheet = modifyCell(row, col, sheet, "0");
+		}
+		else
+		{
+			for (int i = 0; i < 12; i++)
+			{
+				for (int j = 0; j < 22; j++)
+				{
+					sheet = modifyCell(i, j, sheet, "0");
+				}
+			}
+			
+		}
+		
 		return sheet;
 	}
 	
@@ -173,13 +185,17 @@ public class SpreadsheetGen {
 	/**
 	 * Recalculates the values of the entire spreadsheet (usually after an update).
 	 **/
+	/*
 	private static void recalc(Spreadsheet sheet) throws CharNotFoundException
 	{
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				sheet.changeSpreadsheetValue(i, j, sheet.getCellVal(i, j));
+		for (int i = 0; i < 12; i++)
+		{
+			for (int j = 0; j < 22; j++)
+			{
+				//sheet.changeSpreadsheetValue(i, j, sheet.getCellVal(i, j));
+				
 			}
 		}
 	}
-	
+	*/
 }

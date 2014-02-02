@@ -7,7 +7,6 @@ package VisiCalc;
  *
 */
 public class Spreadsheet {
-	private String fileName;
 	private Cell[][] cells; 
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	
