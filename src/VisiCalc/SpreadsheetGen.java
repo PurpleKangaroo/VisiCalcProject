@@ -125,22 +125,17 @@ public class SpreadsheetGen {
 	
 	private static String whiteSpace(String a)
 	{
-		int quoteCount = 0;
-		int z = a.length();
-		for(int i = 0; i<z; i++)
+		int stringLength = a.length();
+		for(int i = 0; i < stringLength; i++)
 		{
-			if(a.charAt(i) == ' '&& quoteCount%2 ==0)
+			if(a.charAt(i) == ' ')
 			{
 				String b = a.substring(0,i);
 				String c = a.substring(i+1, a.length());
 				a = b+c;
 				i--;
 			}
-			if(a.charAt(i) == '\"')
-			{
-				quoteCount++;
-			}
-			z = a.length();
+			stringLength = a.length();
 		}
 		//causes strings to be recognized as formulas: a = a.replaceAll("\"", "");
 		return a;
