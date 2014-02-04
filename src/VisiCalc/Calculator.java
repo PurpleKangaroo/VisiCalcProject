@@ -290,13 +290,13 @@ public class Calculator {
 	 * @param spread - the spreasheet cell values are obtained from.
 	 */
 	private void replaceCellName(Spreadsheet spread)
-	{
+	{ 
 		for (int i = 0; i < 12; i++)
 		{
 			for (int j = 21; j > 0; j--)
 			{
-				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j).replaceAll("\"", "")));
-				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j).replaceAll("\"", "")).toLowerCase());
+				expression = expression.replaceAll(characters[i] + j + "", (spread.getCellVal(i, j-1)));
+				expression = expression.replaceAll((characters[i] + j + "").toLowerCase(), (spread.getCellVal(i, j-1)));
 			}
 		}
 	}

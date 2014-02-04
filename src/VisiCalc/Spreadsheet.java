@@ -42,7 +42,7 @@ public class Spreadsheet {
 	 * Prints out the spreadsheet.
 	 */
 	public void printSpreadsheet() {
-		int maxLength = getMaxLength() + 1; /** need extra space at end **/
+		int maxLength = getMaxLength() + 2; /** need extra space at end **/
 		maxLength = maxLength > 3 ? maxLength : 3;
 		String s;
 		
@@ -52,15 +52,25 @@ public class Spreadsheet {
 					System.out.print("  ");
 				}
 				else if (i == 0) {
-					System.out.print(padRight(String.format("%2d", j), maxLength - 1));
+					s = padRight(String.format("%2d", j), maxLength - 1);
+					while(s.length() < maxLength)
+					{
+						s = s + " ";
+					}
+					System.out.print(s);
 				}
 				else if (j == 0) {
 					s = (char)('A' + i - 1) + "| ";
 					System.out.print(s);
 				}
 				else {
-					s = cells[i-1][j-1].getCellString();
-					System.out.print(padRight(s, maxLength - s.length()));
+					s = cells[i-1][j-1].getCellString().replaceAll("\"", "");
+					s = padRight(s, maxLength - s.length());
+					while(s.length() < maxLength)
+					{
+						s = s + " ";
+					}
+					System.out.print(s);
 				}
 					
 			}
