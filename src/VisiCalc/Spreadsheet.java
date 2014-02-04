@@ -1,19 +1,12 @@
 package VisiCalc;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.net.URISyntaxException;
-
 /**
  * 
  * @author Devon Grove
  * @author Holt Maki
  *
 */
-//TODO NEEDS SERIOUS FIXING. RIGHT NOW IT STORES EVERYTHING AS STRING, NOT CELL
 public class Spreadsheet {
-	private String fileName;
 	private Cell[][] cells; 
 	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
 	
@@ -49,33 +42,49 @@ public class Spreadsheet {
 	 * Prints out the spreadsheet.
 	 */
 	public void printSpreadsheet() {
+		int maxLength = getMaxLength() + 1; /** need extra space at end **/
+		maxLength = maxLength > 3 ? maxLength : 3;
+		String s;
 		
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				String a = cells[i][j].getCellString();
-				for (int b = getMaxLength();a.length()<b;)//work on formatitng the spreadshert
-				{
-					a = a +" ";
+		for (int i = 0; i < 13; i++){
+			for (int j = 0; j < 23; j++) {
+				if ((i == 0) && (j == 0)) {
+					System.out.print("  ");
 				}
-				System.out.print(a + " ");
+				else if (i == 0) {
+					System.out.print(padRight(String.format("%2d", j), maxLength - 1));
+				}
+				else if (j == 0) {
+					s = (char)('A' + i - 1) + "| ";
+					System.out.print(s);
+				}
+				else {
+					s = cells[i-1][j-1].getCellString();
+					System.out.print(padRight(s, maxLength - s.length()));
+				}
+					
 			}
 			System.out.println();
 		}
 	}
 
+	public String padRight(String s, int n) {
+	     return String.format("%1$-" + n + "s", s);  
+	}
+	
 	public void changeSpreadsheetValue(int row, int column, String newValue) {
-		cells[column][row] = new Cell(newValue);
+		cells[row][column] = new Cell(newValue);
 	}
 	
 	/**
-	 * Getter for the maximum length of a cell so the spreadsheet knows how wide to make everything.
+	 * Getter for value of the specified cell (as a string).
 	 * @param col - the column of the cell to return the value of.
 	 * @param row - the row of the cell to return the value of.
 	 * @return the value of the declared cell as a string.
 	 */
-	public String getCellVal(int col, int row)
+	public String getCellVal(int row, int col)
 	{
-		String a = cells[col][row].getCellString();
+		String a = cells[row][col].getCellString();
 		return a;
 	}
 	
@@ -87,46 +96,4 @@ public class Spreadsheet {
 	{
 		return cells;
 	}
-	
-	/**
-	 * Saves the current spreadsheet, under a newly specified file name ("Save As").
-	 * @param the desired spreadsheet file name to save under.
-	 */
-	public void save(String filename) throws FileNotFoundException, URISyntaxException //this is a "save as" method, not done in error
-	{
-		fileName = filename;
-		File saveFile = new File((new PathFinder()).getVisiCalc_Path(filename+".txt"));
-		PrintWriter out = new PrintWriter(saveFile);
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				out.println(cells[i][j].getValue().getInputStr());
-			}
-		}
-	}
-	
-	/**
-	 * Saves the current spreadsheet in its current state, overwriting previous versions, if any.
-	 */
-	public void save() throws URISyntaxException, FileNotFoundException
-	{
-		File saveFile = new File((new PathFinder()).getVisiCalc_Path(fileName+".txt"));
-		PrintWriter out = new PrintWriter(saveFile);
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 22; j++) {
-				out.println(cells[i][j].getValue().getInputStr());
-			}
-		}
-		//FIXME add a try catch for this elsewhere in the source code in case of the spreadsheet not having a filename.
-	}
-	
-	/**
-	 * Loads the spreadsheet from the user-specified file name call.
-	 * @param the desired spreadsheet file name to load.
-	 */
-	public void load(String filename)
-	{
-		fileName = filename;
-		//FIXME fill
-	}
-	
 }
