@@ -2,7 +2,7 @@ package VisiCalc;
 import java.util.Scanner;
 
 public class SpreadsheetGen {
-	private static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L'};
+	private static final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K","L"};
 	
 	public static void main(String[] args) throws CharNotFoundException
 	{
@@ -47,7 +47,7 @@ public class SpreadsheetGen {
 		int index = -1;
 		for (int i = 0; i<12 && !found; i++)
 		{
-			if (alphabet[i] == letter)
+			if (alphabet[i].charAt(0) == letter)
 			{
 				found = true;
 				index = i;
@@ -161,14 +161,15 @@ public class SpreadsheetGen {
 		boolean found = false;
 		userInput = userInput.toUpperCase();
 		userInput = userInput.replaceAll(" ", "");
-		String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
+		userInput = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
+		userInput = userInput.toUpperCase().replaceAll("CLEAR", "");
 		for(int i = 0; i < 12 && !found; i++)
 		{
 			for(int n = 0; n < 22 && !found; n++)
 			{
 				String a = alphabet[i] + "";
 				a = a + n;
-				if(a.equals(assignment))
+				if(a.equalsIgnoreCase(userInput.replaceAll(" ", "")))
 				{
 					found = true;
 				}
