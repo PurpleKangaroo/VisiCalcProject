@@ -13,7 +13,7 @@ public class SpreadsheetGen {
 		while (!userInput.equalsIgnoreCase("quit"))
 		{
 			userInput = whiteSpace(userInput);
-			if (userInput.contains("clear"))
+			if (userInput.toLowerCase().contains("clear"))
 			{
 				test = clear(userInput, test);
 			}
