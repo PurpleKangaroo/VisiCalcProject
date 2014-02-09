@@ -13,9 +13,23 @@ public class SpreadsheetGen {
 		while (!userInput.equalsIgnoreCase("quit"))
 		{
 			userInput = whiteSpace(userInput);
-			if (userInput.contains("clear"))
+			//Case 1: CLEAR COMMAND
+			if (userInput.toLowerCase().contains("clear"))
 			{
 				test = clear(userInput, test);
+			}
+			//Case 1: CONCAT COMMAND
+			else if (userInput.toLowerCase().contains("concat"))
+			{
+				//test = concat(userInput, test);
+			}
+			else if (userInput.toLowerCase().contains("avg") || userInput.toLowerCase().contains("average"))
+			{
+				//test = avg(userInput, test);
+			}
+			else if (userInput.toLowerCase().contains("sum"))
+			{
+				//test = sum(userInput, test);
 			}
 			else if (expContainsCellRef(userInput))
 			{
@@ -177,6 +191,33 @@ public class SpreadsheetGen {
 		}
 		return found;
 	}
+	
+	/* CURRENTLY JUST A COPY OF THE CLEAR METHOD. NEED TO IMPLEMENT
+	 private static Spreadsheet avg(String userInput, Spreadsheet sheet) throws CharNotFoundException
+	 
+	{
+		if (expContainsCellRef(userInput))
+		{
+			String cellName = userInput.substring(5, userInput.length());
+			int row = findCellRow(cellName);
+			int col = findCellCol(cellName);
+			sheet = modifyCell(row, col, sheet, "0");
+		}
+		else
+		{
+			for (int i = 0; i < 12; i++)
+			{
+				for (int j = 0; j < 22; j++)
+				{
+					sheet = modifyCell(i, j, sheet, "0");
+				}
+			}
+			
+		}
+		
+		return sheet;
+	}
+	*/
 	
 	/**
 	 * Recalculates the values of the entire spreadsheet (usually after an update).
