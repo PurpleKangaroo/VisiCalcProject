@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class SpreadsheetGen {
 	private static final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K","L"};
 	
-	public static void main(String[] args) throws CharNotFoundException
+	public static void main(String[] args)
 	{
 		Spreadsheet test = new Spreadsheet();
 		test.printSpreadsheet();
@@ -12,46 +12,96 @@ public class SpreadsheetGen {
 		String userInput = sc.nextLine();
 		while (!userInput.equalsIgnoreCase("quit"))
 		{
-			userInput = whiteSpace(userInput);
-			//Case 1: CLEAR COMMAND
-			if (userInput.toLowerCase().contains("clear"))
+			try
 			{
-				test = clear(userInput, test);
+				userInput = whiteSpace(userInput);
+				//Case 1: CLEAR COMMAND
+				if (userInput.toLowerCase().contains("clear"))
+				{
+					test = clear(userInput, test);
+				}
+				//Case 1: CONCAT COMMAND
+				else if (userInput.toLowerCase().contains("concat"))
+				{
+					test = concat(userInput, test);
+				}
+				else if (userInput.toLowerCase().contains("avg") || userInput.toLowerCase().contains("average"))
+				{
+					//test = avg(userInput, test);
+				}
+				else if (userInput.toLowerCase().contains("sum"))
+				{
+					//test = sum(userInput, test);
+				}
+				else if (expContainsCellRef(userInput))
+				{
+					test = changeToOtherCell(userInput, test);
+					//recalc(test);
+				}
+				else if(userInput.contains("="))
+				{
+					test = setCell(userInput, test);
+					//recalc(test);
+				}
+				else
+				{
+					System.out.println("ERROR: Not a valid input");
+				}
+				test.printSpreadsheet();
+				userInput = sc.nextLine();
 			}
-			//Case 1: CONCAT COMMAND
-			else if (userInput.toLowerCase().contains("concat"))
+			
+			catch(CharNotFoundException e)
 			{
-				//test = concat(userInput, test);
+				System.out.print("Invalid input: Cell does not exist\n");
+				
 			}
-			else if (userInput.toLowerCase().contains("avg") || userInput.toLowerCase().contains("average"))
-			{
-				//test = avg(userInput, test);
-			}
-			else if (userInput.toLowerCase().contains("sum"))
-			{
-				//test = sum(userInput, test);
-			}
-			else if (expContainsCellRef(userInput))
-			{
-				test = changeToOtherCell(userInput, test);
-				//recalc(test);
-			}
-			else if(userInput.contains("="))
-			{
-				test = setCell(userInput, test);
-				//recalc(test);
-			}
-			else
-			{
-				System.out.println("ERROR: Not a valid input");
-			}
-			test.printSpreadsheet();
-			userInput = sc.nextLine();
+			
 		}
 		sc.close();
 		System.out.println("You have decided to quit.");
 	}
 	
+	private static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
+		if (expContainsCellRef(userInput))
+		{
+			String cellName = userInput.substring(0, userInput.indexOf('='));
+			userInput = userInput.substring(userInput.indexOf("concat")+6);
+			int row = findCellRow(cellName);
+			int col = findCellCol(cellName);
+			String assignment = new String();
+			while(userInput.contains(","))
+			{
+				String sub = new String();
+				int next = userInput.indexOf(",");
+				if(next >0)
+				{
+					sub = userInput.substring(0 , sub.indexOf(","));
+				}
+				int nextquote = sub.indexOf("\"");
+				if(nextquote > 0)
+				{
+					sub = sub.substring(nextquote);
+					sub.replace("\"", "");
+					nextquote = sub.indexOf("\"");
+					if(nextquote > 0)
+					{
+						assignment = assignment + sub.substring(0,sub.indexOf("\""));
+					}
+					userInput = userInput.substring(sub.length() + 2);
+				}
+				else
+				{
+					//TODO: This is the case where the assignment adds a cells contents
+				}
+			}
+			
+			test = modifyCell(row, col, test, assignment);
+		}
+		
+		return test;
+	}
+
 	public static int getAlphabetIndex(char letter) throws CharNotFoundException
 	{
 		String a = letter + "";
