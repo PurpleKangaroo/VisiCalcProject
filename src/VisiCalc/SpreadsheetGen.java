@@ -28,6 +28,7 @@ public class SpreadsheetGen {
 				else if (userInput.toLowerCase().contains("avg") || userInput.toLowerCase().contains("average"))
 				{
 					//test = avg(userInput, test);
+					//TODO: The way we can do this is have a method that calls sum, then devides by the number of terms.
 				}
 				else if (userInput.toLowerCase().contains("sum"))
 				{
@@ -72,6 +73,7 @@ public class SpreadsheetGen {
 			String assignment = new String();
 			while(userInput.contains(","))
 			{
+				//TODO: Does not work
 				String sub = new String();
 				int next = userInput.indexOf(",");
 				if(next >0)
