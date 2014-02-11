@@ -20,7 +20,6 @@ public class SpreadsheetGen {
 				{
 					test = clear(userInput, test);
 				}
-				//Case 1: CONCAT COMMAND
 				else if (userInput.toLowerCase().contains("concat"))
 				{
 					test = concat(userInput, test);
@@ -64,42 +63,53 @@ public class SpreadsheetGen {
 	}
 	
 	private static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
-		if (expContainsCellRef(userInput))
+		String cellName = userInput.substring(0, userInput.indexOf('='));
+		userInput = userInput.substring(userInput.indexOf("concat")+6);
+		int row = findCellRow(cellName);
+		int col = findCellCol(cellName);
+		String assignment = new String();
+		while(userInput.contains(",") || userInput.length()  > 0)
 		{
-			String cellName = userInput.substring(0, userInput.indexOf('='));
-			userInput = userInput.substring(userInput.indexOf("concat")+6);
-			int row = findCellRow(cellName);
-			int col = findCellCol(cellName);
-			String assignment = new String();
-			while(userInput.contains(","))
+			//TODO: Does not work
+			String sub = new String();
+			int next = userInput.indexOf(",");
+			if(next >0)
 			{
-				//TODO: Does not work
-				String sub = new String();
-				int next = userInput.indexOf(",");
-				if(next >0)
-				{
-					sub = userInput.substring(0 , sub.indexOf(","));
-				}
-				int nextquote = sub.indexOf("\"");
+				sub = userInput.substring(0,next);
+				userInput = userInput.substring(next+1);
+			}
+			else
+			{
+				sub = userInput;
+				userInput = "";
+			}
+			int nextquote = sub.indexOf("\"");
+			if(nextquote >= 0) 
+			{
+				sub = sub.substring(nextquote);
+				sub.replace("\"", "");
+				nextquote = sub.indexOf("\"");
 				if(nextquote > 0)
 				{
-					sub = sub.substring(nextquote);
-					sub.replace("\"", "");
-					nextquote = sub.indexOf("\"");
-					if(nextquote > 0)
-					{
-						assignment = assignment + sub.substring(0,sub.indexOf("\""));
-					}
-					userInput = userInput.substring(sub.length() + 2);
+					assignment = assignment + sub;
+					
+					System.out.println(sub);
 				}
 				else
 				{
-					//TODO: This is the case where the assignment adds a cells contents
+					assignment = assignment + sub;
 				}
 			}
 			
-			test = modifyCell(row, col, test, assignment);
+			else
+			{
+				//TODO: This is the case where the assignment adds a cells contents
+			}
 		}
+		assignment = assignment.replaceAll("\"", "");
+		assignment = "\"" + assignment + "\"";
+		System.out.println(assignment);
+		test = modifyCell(row, col, test, assignment);
 		
 		return test;
 	}
