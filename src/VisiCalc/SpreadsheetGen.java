@@ -92,8 +92,6 @@ public class SpreadsheetGen {
 				if(nextquote > 0)
 				{
 					assignment = assignment + sub;
-					
-					System.out.println(sub);
 				}
 				else
 				{
@@ -103,13 +101,17 @@ public class SpreadsheetGen {
 			
 			else
 			{
-				//TODO: This is the case where the assignment adds a cells contents
+				int assignR = findCellRow(sub.replaceAll(" ",""));
+				int assignC = findCellCol(sub.replaceAll(" ",""));
+				sub = test.getCellVal(assignR, assignC);
+				assignment = assignment + sub;
 			}
+			System.out.println(sub);
 		}
 		assignment = assignment.replaceAll("\"", "");
 		assignment = "\"" + assignment + "\"";
 		System.out.println(assignment);
-		test = modifyCell(row, col, test, assignment);
+		test = modifyCell(row , col, test, assignment);
 		
 		return test;
 	}
@@ -195,7 +197,7 @@ public class SpreadsheetGen {
 		String assignment = userInput.substring(userInput.indexOf('=') + 1, userInput.length());
 		int assignR = findCellRow(assignment.replaceAll(" ",""));
 		int assignC = findCellCol(assignment.replaceAll(" ",""));
-		sheet = modifyCell(row, col, sheet, sheet.getCellVal(assignC, assignR));
+		sheet = modifyCell(row, col, sheet, sheet.getCellVal(assignR, assignC));
 		return sheet;
 	}
 	
