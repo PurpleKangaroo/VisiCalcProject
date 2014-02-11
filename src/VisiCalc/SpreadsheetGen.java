@@ -26,7 +26,7 @@ public class SpreadsheetGen {
 				}
 				else if (userInput.toLowerCase().contains("avg") || userInput.toLowerCase().contains("average"))
 				{
-					//test = avg(userInput, test);
+					test = avg(userInput, test);
 					//TODO: The way we can do this is have a method that calls sum, then devides by the number of terms.
 				}
 				else if (userInput.toLowerCase().contains("sum"))
@@ -60,6 +60,58 @@ public class SpreadsheetGen {
 		}
 		sc.close();
 		System.out.println("You have decided to quit.");
+	}
+	
+	private static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
+		String cellName = userInput.substring(0, userInput.indexOf('='));
+		userInput = userInput.substring(userInput.indexOf("concat")+6);
+		int row = findCellRow(cellName);
+		int col = findCellCol(cellName);
+		String assignment = new String();
+		while(userInput.contains(",") || userInput.length()  > 0)
+		{
+			//TODO: Does not work
+			String sub = new String();
+			int next = userInput.indexOf(",");
+			if(next >0)
+			{
+				sub = userInput.substring(0,next);
+				userInput = userInput.substring(next+1);
+			}
+			else
+			{
+				sub = userInput;
+				userInput = "";
+			}
+			int nextquote = sub.indexOf("\"");
+			if(nextquote >= 0) 
+			{
+				sub = sub.substring(nextquote);
+				sub.replace("\"", "");
+				nextquote = sub.indexOf("\"");
+				if(nextquote > 0)
+				{
+					assignment = assignment + sub;
+				}
+				else
+				{
+					assignment = assignment + sub;
+				}
+			}
+			
+			else
+			{
+				int assignR = findCellRow(sub.replaceAll(" ",""));
+				int assignC = findCellCol(sub.replaceAll(" ",""));
+				sub = test.getCellVal(assignR, assignC);
+				assignment = assignment + sub;
+			}
+		}
+		assignment = assignment.replaceAll("\"", "");
+		assignment = "\"" + assignment + "\"";
+		test = modifyCell(row , col, test, assignment);
+		
+		return test;
 	}
 	
 	private static Spreadsheet sum(String userInput, Spreadsheet test) throws CharNotFoundException {
@@ -122,55 +174,75 @@ public class SpreadsheetGen {
 		return test;
 	}
 
-	private static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
+	private static Spreadsheet avg(String userInput, Spreadsheet test) throws CharNotFoundException {
 		String cellName = userInput.substring(0, userInput.indexOf('='));
-		userInput = userInput.substring(userInput.indexOf("concat")+6);
+		if(userInput.contains("avg"))
+		{
+			userInput = userInput.substring(userInput.indexOf("avg")+3);
+		}
+		else if(userInput.contains("avg"))
+		{
+			userInput = userInput.substring(userInput.indexOf("average")+7);
+		}
 		int row = findCellRow(cellName);
 		int col = findCellCol(cellName);
-		String assignment = new String();
-		while(userInput.contains(",") || userInput.length()  > 0)
+		float assignment = 0;
+		float assignmentno = 0;
+		if(userInput.contains("-"))
 		{
-			//TODO: Does not work
-			String sub = new String();
-			int next = userInput.indexOf(",");
-			if(next >0)
+			String cell1Name = userInput.substring(0,userInput.indexOf("-"));
+			String cell2Name = userInput.substring(userInput.indexOf("-") + 1);
+			int cell1col = findCellCol(cell1Name);
+			int cell1row = findCellRow(cell1Name);
+			
+			int cell2col = findCellCol(cell2Name);
+			int cell2row = findCellRow(cell2Name);
+			if(cell1col == cell2col)
 			{
-				sub = userInput.substring(0,next);
-				userInput = userInput.substring(next+1);
-			}
-			else
-			{
-				sub = userInput;
-				userInput = "";
-			}
-			int nextquote = sub.indexOf("\"");
-			if(nextquote >= 0) 
-			{
-				sub = sub.substring(nextquote);
-				sub.replace("\"", "");
-				nextquote = sub.indexOf("\"");
-				if(nextquote > 0)
+				for(int i = cell1row; i<= cell2row; i++)
 				{
-					assignment = assignment + sub;
+					assignment = assignment + Float.parseFloat(test.getCellVal(i, cell1col));
+				}
+				assignmentno = cell2row - cell1row;
+				assignmentno++;
+			}
+			else if(cell1row == cell2row)
+			{
+				for(int i = cell1col; i<= cell2col; i++)
+				{
+					assignment = assignment + Float.parseFloat(test.getCellVal(cell1row, i));
+				}
+				assignmentno = cell2col - cell1col;
+				assignmentno++;
+			}
+		}
+		else if(userInput.contains(","))
+		{
+			while(userInput.contains(","))
+			{
+				String sub = new String();
+				int next = userInput.indexOf(",");
+				if(next >0)
+				{
+					sub = userInput.substring(0,next);
+					userInput = userInput.substring(next+1);
 				}
 				else
 				{
-					assignment = assignment + sub;
+					sub = userInput;
+					userInput = "";
 				}
-			}
-			
-			else
-			{
 				int assignR = findCellRow(sub.replaceAll(" ",""));
 				int assignC = findCellCol(sub.replaceAll(" ",""));
 				sub = test.getCellVal(assignR, assignC);
-				assignment = assignment + sub;
+				float subFloat = Float.parseFloat(sub);
+				assignment = assignment + subFloat;
 			}
+			
 		}
-		assignment = assignment.replaceAll("\"", "");
-		assignment = "\"" + assignment + "\"";
-		test = modifyCell(row , col, test, assignment);
-		
+		assignment = assignment/assignmentno;
+		String assignmentStr = assignment + "";
+		test = modifyCell(row , col, test, assignmentStr);
 		return test;
 	}
 
