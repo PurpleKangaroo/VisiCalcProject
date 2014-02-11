@@ -31,7 +31,7 @@ public class SpreadsheetGen {
 				}
 				else if (userInput.toLowerCase().contains("sum"))
 				{
-					//test = sum(userInput, test);
+					test = sum(userInput, test);
 				}
 				else if (expContainsCellRef(userInput))
 				{
@@ -62,6 +62,66 @@ public class SpreadsheetGen {
 		System.out.println("You have decided to quit.");
 	}
 	
+	private static Spreadsheet sum(String userInput, Spreadsheet test) throws CharNotFoundException {
+		String cellName = userInput.substring(0, userInput.indexOf('='));
+		userInput = userInput.substring(userInput.indexOf("sum")+3);
+		int row = findCellRow(cellName);
+		int col = findCellCol(cellName);
+		float assignment = 0;
+		if(userInput.contains("-"))
+		{
+			String cell1Name = userInput.substring(0,userInput.indexOf("-"));
+			String cell2Name = userInput.substring(userInput.indexOf("-") + 1);
+			int cell1col = findCellCol(cell1Name);
+			int cell1row = findCellRow(cell1Name);
+			
+			int cell2col = findCellCol(cell2Name);
+			int cell2row = findCellRow(cell2Name);
+			
+			if(cell1col == cell2col)
+			{
+				for(int i = cell1row; i<= cell2row; i++)
+				{
+					assignment = assignment + Float.parseFloat(test.getCellVal(i, cell1col));
+				}
+			}
+			else if(cell1row == cell2row)
+			{
+				for(int i = cell1col; i<= cell2col; i++)
+				{
+					assignment = assignment + Float.parseFloat(test.getCellVal(cell1row, i));
+				}
+			}
+		}
+		else if(userInput.contains(","))
+		{
+			while(userInput.contains(","))
+			{
+				String sub = new String();
+				int next = userInput.indexOf(",");
+				if(next >0)
+				{
+					sub = userInput.substring(0,next);
+					userInput = userInput.substring(next+1);
+				}
+				else
+				{
+					sub = userInput;
+					userInput = "";
+				}
+				int assignR = findCellRow(sub.replaceAll(" ",""));
+				int assignC = findCellCol(sub.replaceAll(" ",""));
+				sub = test.getCellVal(assignR, assignC);
+				float subFloat = Float.parseFloat(sub);
+				assignment = assignment + subFloat;
+			}
+			
+		}
+		String assignmentStr = assignment + "";
+		test = modifyCell(row , col, test, assignmentStr);
+		return test;
+	}
+
 	private static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
 		String cellName = userInput.substring(0, userInput.indexOf('='));
 		userInput = userInput.substring(userInput.indexOf("concat")+6);
@@ -106,11 +166,9 @@ public class SpreadsheetGen {
 				sub = test.getCellVal(assignR, assignC);
 				assignment = assignment + sub;
 			}
-			System.out.println(sub);
 		}
 		assignment = assignment.replaceAll("\"", "");
 		assignment = "\"" + assignment + "\"";
-		System.out.println(assignment);
 		test = modifyCell(row , col, test, assignment);
 		
 		return test;
