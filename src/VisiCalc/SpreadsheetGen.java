@@ -84,7 +84,7 @@ public class SpreadsheetGen {
 				userInput = "";
 			}
 			int nextquote = sub.indexOf("\"");
-			if(nextquote >= 0)
+			if(nextquote >= 0) 
 			{
 				sub = sub.substring(nextquote);
 				sub.replace("\"", "");
