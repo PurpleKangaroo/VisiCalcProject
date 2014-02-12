@@ -33,7 +33,6 @@ public class SpreadsheetGen {
 				else if (userInput.toLowerCase().contains("avg") || userInput.toLowerCase().contains("average"))
 				{
 					test = avg(userInput, test);
-					//TODO: The way we can do this is have a method that calls sum, then devides by the number of terms.
 				}
 				else if (userInput.toLowerCase().contains("sum"))
 				{
@@ -351,7 +350,6 @@ public class SpreadsheetGen {
 			}
 			stringLength = a.length();
 		}
-		//causes strings to be recognized as formulas: a = a.replaceAll("\"", "");
 		return a;
 	}
 	
@@ -392,44 +390,16 @@ public class SpreadsheetGen {
 		return found;
 	}
 	
-	/* CURRENTLY JUST A COPY OF THE CLEAR METHOD. NEED TO IMPLEMENT
-	 private static Spreadsheet avg(String userInput, Spreadsheet sheet) throws CharNotFoundException
-	 
-	{
-		if (expContainsCellRef(userInput))
-		{
-			String cellName = userInput.substring(5, userInput.length());
-			int row = findCellRow(cellName);
-			int col = findCellCol(cellName);
-			sheet = modifyCell(row, col, sheet, "0");
-		}
-		else
-		{
-			for (int i = 0; i < 12; i++)
-			{
-				for (int j = 0; j < 22; j++)
-				{
-					sheet = modifyCell(i, j, sheet, "0");
-				}
-			}
-			
-		}
-		
-		return sheet;
-	}
-	*/
-	
-	/**
-	 * Recalculates the values of the entire spreadsheet (usually after an update).
-	 **/
 	/*
+	 * Recalculates the values of the entire spreadsheet (usually after an update).
+	 */
 	private static void recalc(Spreadsheet sheet) throws CharNotFoundException
 	{
 		for (int i = 0; i < 12; i++)
 		{
 			for (int j = 0; j < 22; j++)
 			{
-				//sheet.changeSpreadsheetValue(i, j, sheet.getCellVal(i, j));
+				sheet.changeSpreadsheetValue(i, j, sheet.getCellVal(i, j));
 				
 			}
 		}
