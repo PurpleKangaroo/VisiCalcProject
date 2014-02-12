@@ -20,6 +20,12 @@ public class SpreadsheetGen {
 				{
 					test = clear(userInput, test);
 				}
+				else if(userInput.contains("\"") && userInput.contains("+"))
+				{
+					userInput = userInput.replaceAll("\\+", ",");
+					userInput = userInput.substring(0,userInput.indexOf("=")+1) + "concat" + userInput.substring(userInput.indexOf("="));
+					test = concat(userInput, test);
+				}
 				else if (userInput.toLowerCase().contains("concat"))
 				{
 					test = concat(userInput, test);
@@ -62,7 +68,7 @@ public class SpreadsheetGen {
 		System.out.println("You have decided to quit.");
 	}
 	
-	private static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
+	static Spreadsheet concat(String userInput, Spreadsheet test) throws CharNotFoundException {
 		String cellName = userInput.substring(0, userInput.indexOf('='));
 		userInput = userInput.substring(userInput.indexOf("concat")+6);
 		int row = findCellRow(cellName);

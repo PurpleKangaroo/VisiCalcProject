@@ -19,6 +19,12 @@ public class Calculator {
 		this.expression = expression;
 		replaceCellName(spread);
 		Calculate();
+		try {
+			spread = SpreadsheetGen.concat(expression, spread);
+		} catch (CharNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -37,6 +43,14 @@ public class Calculator {
 	 */
 	private void Calculate()
 	{
+		if(expression.contains("\"") && expression.contains("+"))
+		{
+			expression = expression.replaceAll("\\+", ",");
+			expression = expression.substring(0,expression.indexOf("=")+1) + "concat" + expression.substring(expression.indexOf("="));
+			
+		}
+		else
+		{
 		expression.replaceAll("x", "*");
 		format();
 		while(expression.contains("("))
@@ -50,6 +64,7 @@ public class Calculator {
 		catch(Exception e)
 		{
 			value = expression.replaceAll("\\+", "");
+		}
 		}
 	}
 	
